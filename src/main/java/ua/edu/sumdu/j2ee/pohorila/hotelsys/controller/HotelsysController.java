@@ -1,11 +1,11 @@
-package ua.edu.sumdu.j2ee.pohorila.hotelsys;
+package ua.edu.sumdu.j2ee.pohorila.hotelsys.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class HotelsysApplication {
+public class HotelsysController {
 
     @RequestMapping("/welcome")
     public ModelAndView helloWorld() {
