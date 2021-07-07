@@ -1,5 +1,6 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.dao;
 
+import org.springframework.stereotype.Repository;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.*;
 
 import javax.naming.Context;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
 
+@Repository
 public class HotelsysDaoImpl implements HotelsysDao{
 
     public HotelsysDaoImpl(){
