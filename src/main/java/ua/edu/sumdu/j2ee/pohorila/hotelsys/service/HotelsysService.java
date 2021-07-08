@@ -1,10 +1,18 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.service;
 
+import org.springframework.stereotype.Service;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.CustomerList;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.RoomList;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.UserList;
 
+@Service
 public interface HotelsysService {
+    HotelsysService instance = new HotelServiceImpl();
+
+    static HotelsysService getInstance(){
+        return instance;
+    }
+
     void connect();
     void disconnect();
     void addCustomer(String name, String phoneNumber);

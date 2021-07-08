@@ -12,18 +12,15 @@
         <th>Name</th>
         <th>Phone num</th>
     </tr>
-    <body>
-    ${users}
-    <c:forEach items="${users}" var="element">
+    <c:forEach items="${objects}" var="element">
         <tr>
             <td>${element.userId}</td>
             <td>${element.name}</td>
             <td>${element.phoneNum}</td> </tr>
     </c:forEach>
-    </body>
-    </list>
 </table>
 
 <a href="/addUser">Create user</a>
+<a href="/deleteUser">Delete user</a>
 </body>
 </html>

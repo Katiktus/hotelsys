@@ -1,11 +1,14 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.controller;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.User;
+import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.UserList;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.service.HotelsysService;
+
+import java.util.ArrayList;
 
 @Controller
 public class HotelsysController {
@@ -23,10 +26,11 @@ public class HotelsysController {
 
     @RequestMapping("/users")
     public ModelAndView getUsers() {
-        Gson gson = new Gson();
-        gson.toJson(hotelsysService.getAllUsers());
-        System.out.println(gson.toJson(hotelsysService.getAllUsers()));
-        return new ModelAndView("users", "users", gson.toJson(hotelsysService.getAllUsers()));
+        ModelAndView model = new ModelAndView("users");
+        //Возможно вернуть просто ArrayList?
+        UserList objects = hotelsysService.getAllUsers();
+        model.addObject("objects", objects);
+        return model;
     }
 
 
