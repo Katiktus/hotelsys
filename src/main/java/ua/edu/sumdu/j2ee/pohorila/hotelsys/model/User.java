@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.model;
 
+import org.springframework.context.annotation.Bean;
+
 import java.util.Objects;
 
 public class User {

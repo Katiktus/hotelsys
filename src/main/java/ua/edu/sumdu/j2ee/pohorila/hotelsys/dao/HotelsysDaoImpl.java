@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 @Repository
@@ -118,7 +119,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             throwables.printStackTrace();
         }
         disconnect();
-        return null;
+        return customerList;
     }
 
     private Customer parseCustomer(ResultSet resultSet) throws SQLException {
@@ -143,14 +144,14 @@ public class HotelsysDaoImpl implements HotelsysDao{
     }
 
     private User parseUser(ResultSet resultSet) throws SQLException {
-        User user = null;
-        int managerid = resultSet.getInt("LAB3_EP_USER_ID");
-        String name = resultSet.getString("LAB3_EP_CUSTOMER_NAME");
+        int managerid = resultSet.getInt("LAB3_EP_MGR_ID");
+        String name = resultSet.getString("LAB3_EP_USER_NAME");
         int userid = resultSet.getInt("LAB3_EP_USER_ID");
-        int roleid = resultSet.getInt("LAB3_EP_USER_ID");
-        String phoneNumber = resultSet.getString("LAB3_EP_CUSTOMER_PHONE_NUMBER");
-        int hotelid = resultSet.getInt("LAB3_EP_HOTEL_ID");
-        user = new User(name, managerid, userid, roleid, phoneNumber, hotelid);
+        int roleid = resultSet.getInt("LAB3_EP_ROLE_ID");
+        String phoneNumber = resultSet.getString("LAB3_EP_USER_PHONE_NUMBER");
+        int hotelid = resultSet.getInt("LAB3_EP_USER_HOTEL_ID");
+        System.out.println(managerid +" "+ name +" "+ userid);
+        User user = new User(name, managerid, userid, roleid, phoneNumber, hotelid);
         return user;
     }
 
@@ -175,16 +176,19 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public UserList getAllUsers() {
         connect();
         UserList userList = new UserList();
+        ArrayList<User> users = new ArrayList();
         try {
             preparedStatement = connection.prepareStatement("select * from LAB3_EP_USER");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                userList.add(parseUser(resultSet));
+                users.add(parseUser(resultSet));
+                System.out.println(parseUser(resultSet).toString());
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         disconnect();
+        userList.setUsers(users);
         return userList;
 
     }

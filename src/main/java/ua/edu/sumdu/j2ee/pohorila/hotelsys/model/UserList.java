@@ -8,4 +8,12 @@ public class UserList {
     public void add(User user) {
         users.add(user);
     }
+
+    public ArrayList<User> getArr(){
+        return users;
+    }
+
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
+    }
 }
