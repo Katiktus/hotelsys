@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Customer;
+import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Room;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.User;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.UserList;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.service.HotelsysService;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Controller
@@ -27,8 +30,23 @@ public class HotelsysController {
     @RequestMapping("/users")
     public ModelAndView getUsers() {
         ModelAndView model = new ModelAndView("users");
-        //Возможно вернуть просто ArrayList?
-        UserList objects = hotelsysService.getAllUsers();
+        ArrayList<User> objects = hotelsysService.getAllUsers().getArr();
+        model.addObject("objects", objects);
+        return model;
+    }
+
+    @RequestMapping("/customers")
+    public ModelAndView getCustomers() {
+        ModelAndView model = new ModelAndView("customers");
+        ArrayList<Customer> objects = hotelsysService.getAllCustomer().getArr();
+        model.addObject("objects", objects);
+        return model;
+    }
+
+    @RequestMapping("/rooms")
+    public ModelAndView getRooms() {
+        ModelAndView model = new ModelAndView("rooms");
+        ArrayList<Room> objects = hotelsysService.getAllRooms().getArr();
         model.addObject("objects", objects);
         return model;
     }

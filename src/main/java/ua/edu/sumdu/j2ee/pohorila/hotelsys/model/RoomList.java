@@ -5,8 +5,11 @@ import java.util.ArrayList;
 public class RoomList {
     ArrayList<Room> rooms;
 
-
     public void add(Room room) {
         rooms.add(room);
+    }
+
+    public ArrayList<Room> getArr(){
+        return rooms;
     }
 }

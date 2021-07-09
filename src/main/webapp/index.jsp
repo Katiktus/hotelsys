@@ -21,17 +21,17 @@
 <table>
     <tr>
         <td>
-            <a href="rooms.jsp">Rooms</a>
+            <a href="rooms.html">Rooms</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="customers.jsp">Customers</a>
+            <a href="customers.html">Customers</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="users.jsp">Users</a>
+            <a href="users.html">Users</a>
         </td>
     </tr>
 </table>
