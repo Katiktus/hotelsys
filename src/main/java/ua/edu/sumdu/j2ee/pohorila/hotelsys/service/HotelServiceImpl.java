@@ -13,6 +13,10 @@ public class HotelServiceImpl implements HotelsysService{
     @Autowired
     public HotelsysDao hotelsysDao;
 
+    public HotelServiceImpl() {
+        super();
+    }
+
 
     @Override
     public void connect() {
@@ -64,10 +68,10 @@ public class HotelServiceImpl implements HotelsysService{
         hotelsysDao.updateRoomPrice(id, price);
     }
 
-    @Override
+   /* @Override
     public void updateRoomCustomerId(int id, int customerId) {
         hotelsysDao.updateRoomCustomerId(id, customerId);
-    }
+    }*/
 
     @Override
     public void updateUserMgr(int id, int mgrId) {

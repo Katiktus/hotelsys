@@ -134,12 +134,11 @@ public class HotelsysDaoImpl implements HotelsysDao{
     private Room parseRoom(ResultSet resultSet) throws SQLException {
         Room room = null;
         int roomNumber = resultSet.getInt("LAB3_EP_ROOM_NUMBER");
-        String roomType = resultSet.getString("LAB3_EP_CUSTOMER_NAME");
-        int capacity = resultSet.getInt("LAB3_EP_ROOM_NUMBER");
-        int price = resultSet.getInt("LAB3_EP_ROOM_NUMBER");
-        int cus_id = resultSet.getInt("LAB3_EP_ROOM_CUSTOMER_ID");
+        String roomType = resultSet.getString("LAB3_EP_ROOM_TYPE");
+        int capacity = resultSet.getInt("LAB3_EP_ROOM_CAPACITY");
+        int price = resultSet.getInt("LAB3_EP_ROOM_PRICE");
         int hotel_id = resultSet.getInt("LAB3_EP_ROOM_HOTEL_ID");
-        room = new Room(roomNumber,roomType, capacity, price, cus_id, hotel_id);
+        room = new Room(roomNumber,roomType, capacity, price, hotel_id);
         return room;
     }
 
@@ -176,19 +175,19 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public UserList getAllUsers() {
         connect();
         UserList userList = new UserList();
-        ArrayList<User> users = new ArrayList();
+       // ArrayList<User> users = new ArrayList();
         try {
             preparedStatement = connection.prepareStatement("select * from LAB3_EP_USER");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                users.add(parseUser(resultSet));
+                userList.add(parseUser(resultSet));
                 System.out.println(parseUser(resultSet).toString());
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         disconnect();
-        userList.setUsers(users);
+        //userList.setUsers(users);
         return userList;
 
     }
@@ -223,7 +222,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
         disconnect();
     }
 
-    @Override
+    /*@Override
     public void updateRoomCustomerId(int id, int customerId) {
         connect();
         try {
@@ -237,7 +236,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
         }
         disconnect();
 
-    }
+    }*/
 
     @Override
     public void updateUserMgr(int id, int mgrId) {

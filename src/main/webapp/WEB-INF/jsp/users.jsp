@@ -2,7 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <style>
+        <%@include file='../css/hotel.css' %>
+    </style>
+    <title>Users</title>
 </head>
 <body>
 <h1>Users list</h1>
@@ -12,7 +15,7 @@
         <th>Name</th>
         <th>Phone num</th>
     </tr>
-    <c:forEach items="${objects}" var="element">
+    <c:forEach items="${usersObj}" var="element">
         <tr>
             <td>${element.userId}</td>
             <td>${element.name}</td>

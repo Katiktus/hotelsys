@@ -23,7 +23,7 @@ public interface HotelsysService {
     UserList getAllUsers();
     void updateCustomerPhone(int id, String phone);
     void updateRoomPrice(int id, int price);
-    void updateRoomCustomerId(int id, int customerId);
+   // void updateRoomCustomerId(int id, int customerId);
     void updateUserMgr(int id, int mgrId);
     void updateUserRole(int id, int roleId);
     void updateUserPhone(int id, String phoneNum);

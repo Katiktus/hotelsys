@@ -7,10 +7,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Customer;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Room;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.User;
-import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.UserList;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.service.HotelsysService;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Controller
@@ -31,7 +29,7 @@ public class HotelsysController {
     public ModelAndView getUsers() {
         ModelAndView model = new ModelAndView("users");
         ArrayList<User> objects = hotelsysService.getAllUsers().getArr();
-        model.addObject("objects", objects);
+        model.addObject("usersObj", objects);
         return model;
     }
 
@@ -39,7 +37,7 @@ public class HotelsysController {
     public ModelAndView getCustomers() {
         ModelAndView model = new ModelAndView("customers");
         ArrayList<Customer> objects = hotelsysService.getAllCustomer().getArr();
-        model.addObject("objects", objects);
+        model.addObject("customersObj", objects);
         return model;
     }
 
@@ -47,7 +45,7 @@ public class HotelsysController {
     public ModelAndView getRooms() {
         ModelAndView model = new ModelAndView("rooms");
         ArrayList<Room> objects = hotelsysService.getAllRooms().getArr();
-        model.addObject("objects", objects);
+        model.addObject("roomsObj", objects);
         return model;
     }
 

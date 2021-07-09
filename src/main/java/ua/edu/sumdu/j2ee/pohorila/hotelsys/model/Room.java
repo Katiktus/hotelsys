@@ -7,15 +7,13 @@ public class Room {
     String roomType;
     int capacity;
     int price;
-    int customerID;
     int hotelID;
 
-    public Room(int roomNumber, String roomType, int capacity, int price, int customerID, int hotelID) {
+    public Room(int roomNumber, String roomType, int capacity, int price, int hotelID) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.capacity = capacity;
         this.price = price;
-        this.customerID = customerID;
         this.hotelID = hotelID;
     }
 
@@ -72,14 +70,6 @@ public class Room {
     @Override
     public int hashCode() {
         return Objects.hash(roomNumber, roomType, capacity, price);
-    }
-
-    public int getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
     }
 
     public int getHotelID() {
