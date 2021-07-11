@@ -1,19 +1,50 @@
-<!--<html>
-<head>
-    <title>Test</title>
-</head>
-<body>
-    <h1 style="text-align: center">Test index.jsp page</h1>
-    <h2 style="text-align: center">
-        <a href="welcome.html">Click here</a> for a Welcome page.
-    </h2>
-</body>
-</html>
--->
 <html>
 <head>
     <style>
-        <%@include file='WEB-INF/css/hotel.css' %>
+        html {
+            background: #E5E5E5;
+        }
+
+        h1 {
+            position: absolute;
+            width: 977px;
+            height: 88px;
+            left: 54px;
+            top: 31px;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 64px;
+            line-height: 75px;
+
+            color: #000000;
+
+        }
+
+        a {
+            margin: 20px;
+            width: 288px;
+            height: 63px;
+            left: 60px;
+            top: 156px;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 36px;
+            line-height: 42px;
+
+            color: #000000;
+        }
+        table {
+            position: absolute;
+            width: 288px;
+            height: 63px;
+            left: 60px;
+            top: 156px;
+        }
+
     </style>
 </head>
 <body>

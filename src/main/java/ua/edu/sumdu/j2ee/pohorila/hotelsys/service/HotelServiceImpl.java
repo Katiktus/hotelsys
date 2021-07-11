@@ -13,10 +13,10 @@ public class HotelServiceImpl implements HotelsysService{
     @Autowired
     public HotelsysDao hotelsysDao;
 
-    public HotelServiceImpl() {
+    /*public HotelServiceImpl() {
         super();
     }
-
+*/
 
     @Override
     public void connect() {

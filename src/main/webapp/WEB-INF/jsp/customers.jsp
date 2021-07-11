@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: TANYA
@@ -21,11 +22,11 @@
         <th>Name</th>
         <th>Phone number</th>
     </tr>
-    <c:forEach items="${customersObj}" var="element">
+    <c:forEach items="${customersObj}" var="customer">
         <tr>
-            <td>${element.customerId}</td>
-            <td>${element.name}</td>
-            <td>${element.phoneNumber}</td>
+            <td>${customer.customerId}</td>
+            <td>${customer.name}</td>
+            <td>${customer.phoneNumber}</td>
         </tr>
     </c:forEach>
 </table>

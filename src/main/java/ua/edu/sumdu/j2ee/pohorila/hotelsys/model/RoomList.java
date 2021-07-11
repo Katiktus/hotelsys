@@ -12,4 +12,8 @@ public class RoomList {
     public ArrayList<Room> getArr(){
         return rooms;
     }
+
+    public void setRooms(ArrayList<Room> rooms) {
+        this.rooms = rooms;
+    }
 }

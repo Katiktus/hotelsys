@@ -74,12 +74,11 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public void addRoom(String roomType, int capacity, int price, int customerID, int hotelID) {
         connect();
         try {
-            preparedStatement = connection.prepareStatement("insert into LAB3_EP_ROOM values (null, ?, ?, ?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("insert into LAB3_EP_ROOM values (null, ?, ?, ?, ?)");
             preparedStatement.setString(1, roomType);
             preparedStatement.setInt(2, capacity);
             preparedStatement.setInt(3, price);
-            preparedStatement.setInt(4, customerID);
-            preparedStatement.setInt(5, hotelID);
+            preparedStatement.setInt(4, hotelID);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,40 +108,43 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public CustomerList getAllCustomer() {
         connect();
         CustomerList customerList = new CustomerList();
+        ArrayList<Customer> customers = new ArrayList();
         try {
             preparedStatement = connection.prepareStatement("select * from LAB3_EP_CUSTOMER");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                customerList.add(parseCustomer(resultSet));
+                customers.add(parseCustomer(resultSet));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         disconnect();
+        customerList.setCustomers(customers);
         return customerList;
     }
 
-    private Customer parseCustomer(ResultSet resultSet) throws SQLException {
-        Customer customer = null;
+    @Override
+    public Customer parseCustomer(ResultSet resultSet) throws SQLException {
         int customerid = resultSet.getInt("LAB3_EP_CUSTOMER_ID");
         String name = resultSet.getString("LAB3_EP_CUSTOMER_NAME");
         String phoneNumber = resultSet.getString("LAB3_EP_CUSTOMER_PHONE_NUMBER");
-        customer = new Customer(customerid, name, phoneNumber);
+        Customer customer = new Customer(customerid, name, phoneNumber);
         return customer;
     }
 
-    private Room parseRoom(ResultSet resultSet) throws SQLException {
-        Room room = null;
+    @Override
+    public Room parseRoom(ResultSet resultSet) throws SQLException {
         int roomNumber = resultSet.getInt("LAB3_EP_ROOM_NUMBER");
         String roomType = resultSet.getString("LAB3_EP_ROOM_TYPE");
         int capacity = resultSet.getInt("LAB3_EP_ROOM_CAPACITY");
         int price = resultSet.getInt("LAB3_EP_ROOM_PRICE");
         int hotel_id = resultSet.getInt("LAB3_EP_ROOM_HOTEL_ID");
-        room = new Room(roomNumber,roomType, capacity, price, hotel_id);
+        Room room = new Room(roomNumber,roomType, capacity, price, hotel_id);
         return room;
     }
 
-    private User parseUser(ResultSet resultSet) throws SQLException {
+    @Override
+    public User parseUser(ResultSet resultSet) throws SQLException {
         int managerid = resultSet.getInt("LAB3_EP_MGR_ID");
         String name = resultSet.getString("LAB3_EP_USER_NAME");
         int userid = resultSet.getInt("LAB3_EP_USER_ID");
@@ -158,16 +160,18 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public RoomList getAllRooms() {
         connect();
         RoomList roomList = new RoomList();
+        ArrayList<Room> rooms = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement("select * from LAB3_EP_ROOM");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                roomList.add(parseRoom(resultSet));
+                rooms.add(parseRoom(resultSet));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         disconnect();
+        roomList.setRooms(rooms);
         return roomList;
     }
 
@@ -175,19 +179,19 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public UserList getAllUsers() {
         connect();
         UserList userList = new UserList();
-       // ArrayList<User> users = new ArrayList();
+        ArrayList<User> users = new ArrayList();
         try {
             preparedStatement = connection.prepareStatement("select * from LAB3_EP_USER");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                userList.add(parseUser(resultSet));
+                users.add(parseUser(resultSet));
                 System.out.println(parseUser(resultSet).toString());
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         disconnect();
-        //userList.setUsers(users);
+        userList.setUsers(users);
         return userList;
 
     }

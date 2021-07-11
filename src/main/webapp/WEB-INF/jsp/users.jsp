@@ -15,11 +15,11 @@
         <th>Name</th>
         <th>Phone num</th>
     </tr>
-    <c:forEach items="${usersObj}" var="element">
+    <c:forEach items="${usersObj}" var="user">
         <tr>
-            <td>${element.userId}</td>
-            <td>${element.name}</td>
-            <td>${element.phoneNum}</td> </tr>
+            <td>${user.userId}</td>
+            <td>${user.name}</td>
+            <td>${user.phoneNum}</td> </tr>
     </c:forEach>
 </table>
 

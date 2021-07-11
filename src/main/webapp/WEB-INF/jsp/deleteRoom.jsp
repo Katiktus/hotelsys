@@ -1,20 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: TANYA
-  Date: 09.07.2021
-  Time: 12:28
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
 <head>
     <style>
         <%@include file='../css/hotel.css' %>
     </style>
-    <title>Title</title>
+    <title>Delete room</title>
 </head>
-<body>
 <h1>Rooms list</h1>
 <table>
     <tr>
@@ -32,7 +23,11 @@
     </c:forEach>
 </table>
 
-<a href="${pageContext.request.contextPath}/addRoom.html">Create room</a>
-<a href="${pageContext.request.contextPath}/deleteRoom.html">Delete room</a>
+<br>
+<a>Enter a number of room</a>
+<input type="text" placeholder="Number"/>
+<input type="submit" value="Delete"/>
+
+<a href="${pageContext.request.contextPath}/rooms.html">Back</a>
 </body>
 </html>

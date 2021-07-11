@@ -12,4 +12,8 @@ public class UserList {
     public ArrayList<User> getArr(){
         return users;
     }
+
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
+    }
 }
