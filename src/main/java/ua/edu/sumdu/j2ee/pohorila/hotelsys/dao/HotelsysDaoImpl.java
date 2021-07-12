@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Hashtable;
 
 @Repository
@@ -108,18 +107,16 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public CustomerList getAllCustomer() {
         connect();
         CustomerList customerList = new CustomerList();
-        ArrayList<Customer> customers = new ArrayList();
         try {
             preparedStatement = connection.prepareStatement("select * from LAB3_EP_CUSTOMER");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                customers.add(parseCustomer(resultSet));
+                customerList.add(parseCustomer(resultSet));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         disconnect();
-        customerList.setCustomers(customers);
         return customerList;
     }
 
@@ -151,7 +148,6 @@ public class HotelsysDaoImpl implements HotelsysDao{
         int roleid = resultSet.getInt("LAB3_EP_ROLE_ID");
         String phoneNumber = resultSet.getString("LAB3_EP_USER_PHONE_NUMBER");
         int hotelid = resultSet.getInt("LAB3_EP_USER_HOTEL_ID");
-        System.out.println(managerid +" "+ name +" "+ userid);
         User user = new User(name, managerid, userid, roleid, phoneNumber, hotelid);
         return user;
     }
@@ -160,18 +156,16 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public RoomList getAllRooms() {
         connect();
         RoomList roomList = new RoomList();
-        ArrayList<Room> rooms = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement("select * from LAB3_EP_ROOM");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                rooms.add(parseRoom(resultSet));
+                roomList.add(parseRoom(resultSet));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         disconnect();
-        roomList.setRooms(rooms);
         return roomList;
     }
 
@@ -179,19 +173,16 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public UserList getAllUsers() {
         connect();
         UserList userList = new UserList();
-        ArrayList<User> users = new ArrayList();
         try {
             preparedStatement = connection.prepareStatement("select * from LAB3_EP_USER");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                users.add(parseUser(resultSet));
-                System.out.println(parseUser(resultSet).toString());
+                userList.add(parseUser(resultSet));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         disconnect();
-        userList.setUsers(users);
         return userList;
 
     }
@@ -225,22 +216,6 @@ public class HotelsysDaoImpl implements HotelsysDao{
         }
         disconnect();
     }
-
-    /*@Override
-    public void updateRoomCustomerId(int id, int customerId) {
-        connect();
-        try {
-            preparedStatement = connection.prepareStatement("update LAB3_EP_ROOM set LAB3_EP_ROOM_CUSTOMER_ID = ? where " +
-                    "LAB3_EP_ROOM_NUMBER = ? ");
-            preparedStatement.setInt(1, customerId);
-            preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        disconnect();
-
-    }*/
 
     @Override
     public void updateUserMgr(int id, int mgrId) {

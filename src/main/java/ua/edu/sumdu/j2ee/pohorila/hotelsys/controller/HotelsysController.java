@@ -28,7 +28,6 @@ public class HotelsysController {
     @RequestMapping("/users")
     public ModelAndView getUsers() {
         ModelAndView model = new ModelAndView("users");
-        System.out.println(hotelsysService.getAllUsers().getArr().toString());
         ArrayList<User> objects = hotelsysService.getAllUsers().getArr();
         model.addObject("usersObj", objects);
         return model;
@@ -37,7 +36,6 @@ public class HotelsysController {
     @RequestMapping("/customers")
     public ModelAndView getCustomers() {
         ModelAndView model = new ModelAndView("customers");
-        System.out.println(hotelsysService.getAllCustomer().getArr().toString());
         ArrayList<Customer> objects = hotelsysService.getAllCustomer().getArr();
         model.addObject("customersObj", objects);
         return model;
@@ -46,7 +44,6 @@ public class HotelsysController {
     @RequestMapping("/rooms")
     public ModelAndView getRooms() {
         ModelAndView model = new ModelAndView("rooms");
-        System.out.println(hotelsysService.getAllRooms().getArr().toString());
         ArrayList<Room> objects = hotelsysService.getAllRooms().getArr();
         model.addObject("roomsObj", objects);
         return model;
@@ -55,7 +52,6 @@ public class HotelsysController {
     @RequestMapping("/deleteRoom")
     public ModelAndView deleteRoom(){
         ModelAndView model = new ModelAndView("deleteRoom");
-        System.out.println(hotelsysService.getAllRooms().getArr().toString());
         ArrayList<Room> objects = hotelsysService.getAllRooms().getArr();
         model.addObject("roomsObj", objects);
         return model;
