@@ -7,6 +7,15 @@
     <title>Delete room</title>
 </head>
 <h1>Rooms list</h1>
+
+<br>
+<form action="${pageContext.request.contextPath}/deleteRoom.html" method="post">
+<label>Enter a number of room</label>
+<input type="text" placeholder="Number" name="roomNumber" value="${roomNumber}"/>
+<input type="submit" value="Delete"/>
+</form>
+<br>
+
 <table>
     <tr>
         <th>Number</th>
@@ -23,10 +32,6 @@
     </c:forEach>
 </table>
 
-<br>
-<a>Enter a number of room</a>
-<input type="text" placeholder="Number"/>
-<input type="submit" value="Delete"/>
 
 <a href="${pageContext.request.contextPath}/rooms.html">Back</a>
 </body>

@@ -70,14 +70,15 @@ public class HotelsysDaoImpl implements HotelsysDao{
     }
 
     @Override
-    public void addRoom(String roomType, int capacity, int price, int customerID, int hotelID) {
+    public void addRoom(int roomNumber, String roomType, int capacity, int price, int hotelID) {
         connect();
         try {
-            preparedStatement = connection.prepareStatement("insert into LAB3_EP_ROOM values (null, ?, ?, ?, ?)");
-            preparedStatement.setString(1, roomType);
-            preparedStatement.setInt(2, capacity);
-            preparedStatement.setInt(3, price);
-            preparedStatement.setInt(4, hotelID);
+            preparedStatement = connection.prepareStatement("insert into LAB3_EP_ROOM values (?, ?, ?, ?, ?)");
+            preparedStatement.setInt(1, roomNumber);
+            preparedStatement.setString(2, roomType);
+            preparedStatement.setInt(3, capacity);
+            preparedStatement.setInt(4, price);
+            preparedStatement.setInt(5, hotelID);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -34,8 +34,8 @@ public class HotelServiceImpl implements HotelsysService{
     }
 
     @Override
-    public void addRoom(String roomType, int capacity, int price, int customerID, int hotelID) {
-        hotelsysDao.addRoom(roomType, capacity, price, customerID, hotelID);
+    public void addRoom(int roomNumber, String roomType, int capacity, int price, int hotelID) {
+        hotelsysDao.addRoom(roomNumber, roomType, capacity, price, hotelID);
     }
 
     @Override

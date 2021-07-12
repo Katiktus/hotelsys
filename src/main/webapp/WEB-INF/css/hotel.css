@@ -42,3 +42,7 @@ table {
     left: 60px;
     top: 156px;
 }
+
+form{
+    position: absolute;
+}

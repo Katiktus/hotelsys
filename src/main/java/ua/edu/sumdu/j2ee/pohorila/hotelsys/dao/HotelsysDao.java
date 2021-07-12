@@ -15,7 +15,7 @@ public interface HotelsysDao {
     void connect();
     void disconnect();
     void addCustomer(String name, String phoneNumber);
-    void addRoom(String roomType, int capacity, int price, int customerID, int hotelID);
+    void addRoom(int roomNumber, String roomType, int capacity, int price, int hotelID);
     void addUser(String name, int managerId, int roleId, String phoneNum, int hotelId);
     CustomerList getAllCustomer();
     RoomList getAllRooms();

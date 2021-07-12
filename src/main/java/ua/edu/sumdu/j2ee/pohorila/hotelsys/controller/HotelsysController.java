@@ -2,6 +2,9 @@ package ua.edu.sumdu.j2ee.pohorila.hotelsys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Customer;
@@ -57,11 +60,24 @@ public class HotelsysController {
         return model;
     }
 
-    @RequestMapping("/addRoom")
-    public ModelAndView addRoom(){
-        ModelAndView model = new ModelAndView("addRoom");
+    @PostMapping("/deleteRoom")
+    public String addRoom(@ModelAttribute("roomNumber") int roomNumber){
+        hotelsysService.removeRoom(roomNumber);
+        return "redirect:/rooms.html";
+    }
 
+    @GetMapping("/addRoom")
+    public ModelAndView addRoomPage(){
+        ModelAndView model = new ModelAndView("addRoom");
         return model;
     }
+
+    @PostMapping("/addRoom")
+    public String addRoom(@ModelAttribute("room") Room room){
+        hotelsysService.addRoom(room.getRoomNumber(), room.getRoomType(), room.getCapacity(), room.getPrice(), room.getHotelID());
+        return "redirect:/rooms.html";
+    }
+
+
 
 }
