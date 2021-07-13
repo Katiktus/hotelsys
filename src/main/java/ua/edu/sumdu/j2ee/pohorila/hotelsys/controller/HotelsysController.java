@@ -52,6 +52,34 @@ public class HotelsysController {
         return model;
     }
 
+    @RequestMapping("/deleteUser")
+    public ModelAndView deleteUser(){
+        ModelAndView model = new ModelAndView("deleteUser");
+        ArrayList<User> objects = hotelsysService.getAllUsers().getArr();
+        model.addObject("usersObj", objects);
+        return model;
+    }
+
+    @PostMapping("/deleteUser")
+    public String deleteUser(@ModelAttribute("userId") int userId){
+        hotelsysService.removeUser(userId);
+        return "redirect:/users.html";
+    }
+
+    @RequestMapping("/deleteCustomer")
+    public ModelAndView deleteCustomer(){
+        ModelAndView model = new ModelAndView("deleteCustomer");
+        ArrayList<Customer> objects = hotelsysService.getAllCustomer().getArr();
+        model.addObject("customersObj", objects);
+        return model;
+    }
+
+    @PostMapping("/deleteCustomer")
+    public String deleteCustomer(@ModelAttribute("customerId") int customerId){
+        hotelsysService.removeCustomer(customerId);
+        return "redirect:/customers.html";
+    }
+
     @RequestMapping("/deleteRoom")
     public ModelAndView deleteRoom(){
         ModelAndView model = new ModelAndView("deleteRoom");
@@ -61,10 +89,38 @@ public class HotelsysController {
     }
 
     @PostMapping("/deleteRoom")
-    public String addRoom(@ModelAttribute("roomNumber") int roomNumber){
+    public String deleteRoom(@ModelAttribute("roomNumber") int roomNumber){
         hotelsysService.removeRoom(roomNumber);
         return "redirect:/rooms.html";
     }
+
+    /*
+            @GetMapping("/addUser")
+    public ModelAndView addRoomPage(){
+        ModelAndView model = new ModelAndView("addRoom");
+        return model;
+    }
+
+    @PostMapping("/addUser")
+    public String addRoom(@ModelAttribute("room") Room room){
+        hotelsysService.addRoom(room.getRoomNumber(), room.getRoomType(), room.getCapacity(), room.getPrice(), room.getHotelID());
+        return "redirect:/rooms.html";
+    }
+
+        @GetMapping("/addCustomer")
+    public ModelAndView addRoomPage(){
+        ModelAndView model = new ModelAndView("addRoom");
+        return model;
+    }
+
+    @PostMapping("/addCustomer")
+    public String addRoom(@ModelAttribute("room") Room room){
+        hotelsysService.addRoom(room.getRoomNumber(), room.getRoomType(), room.getCapacity(), room.getPrice(), room.getHotelID());
+        return "redirect:/customers.html";
+    }
+
+     */
+
 
     @GetMapping("/addRoom")
     public ModelAndView addRoomPage(){
@@ -77,7 +133,6 @@ public class HotelsysController {
         hotelsysService.addRoom(room.getRoomNumber(), room.getRoomType(), room.getCapacity(), room.getPrice(), room.getHotelID());
         return "redirect:/rooms.html";
     }
-
 
 
 }

@@ -1,13 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
 <head>
     <style>
         <%@include file='../css/hotel.css' %>
     </style>
-    <title>Users</title>
+    <title>Delete user</title>
 </head>
-<body>
+<h1>Rooms list</h1>
+
+<br>
+<form action="${pageContext.request.contextPath}/deleteUser.html" method="post">
+    <label>Enter user id</label>
+    <input type="text" placeholder="Id" name="userId" value="${userId}"/>
+    <input type="submit" value="Delete"/>
+</form>
+<br>
+
 <h1>Users list</h1>
 <table>
     <tr>
@@ -23,7 +31,8 @@
     </c:forEach>
 </table>
 
-<a href="${pageContext.request.contextPath}/addUser.html">Create user</a>
-<a href="${pageContext.request.contextPath}/deleteUser.html">Delete user</a>
+
+
+<a href="${pageContext.request.contextPath}/users.html">Back</a>
 </body>
 </html>

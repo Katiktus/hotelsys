@@ -12,9 +12,18 @@
     <style>
         <%@include file='../css/hotel.css' %>
     </style>
-    <title>Title</title>
+    <title>Delete customer</title>
 </head>
 <body>
+
+<br>
+<form action="${pageContext.request.contextPath}/deleteCustomer.html" method="post">
+    <label>Enter customer id</label>
+    <input type="text" placeholder="Id" name="customerId" value="${customerId}"/>
+    <input type="submit" value="Delete"/>
+</form>
+<br>
+
 <h1>Customers list</h1>
 <table>
     <tr>
@@ -31,7 +40,6 @@
     </c:forEach>
 </table>
 
-<a href="${pageContext.request.contextPath}/addCustomer.html">Create customer</a>
-<a href="${pageContext.request.contextPath}/deleteCustomer.html">Delete customer</a>
+<a href="${pageContext.request.contextPath}/customers.html">Back</a>
 </body>
 </html>
