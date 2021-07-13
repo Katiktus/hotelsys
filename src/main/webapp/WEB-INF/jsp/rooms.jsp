@@ -34,5 +34,6 @@
 
 <a href="${pageContext.request.contextPath}/addRoom.html">Create room</a>
 <a href="${pageContext.request.contextPath}/deleteRoom.html">Delete room</a>
+<a href="${pageContext.request.contextPath}/updateRoomPrice.html">Update room price</a>
 </body>
 </html>

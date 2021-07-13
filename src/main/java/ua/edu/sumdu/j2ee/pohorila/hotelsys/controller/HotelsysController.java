@@ -107,7 +107,7 @@ public class HotelsysController {
         return "redirect:/users.html";
     }
 
-        @GetMapping("/addCustomer")
+    @GetMapping("/addCustomer")
     public ModelAndView addCustomerPage(){
         ModelAndView model = new ModelAndView("addCustomer");
         return model;
@@ -131,5 +131,64 @@ public class HotelsysController {
         return "redirect:/rooms.html";
     }
 
+    @GetMapping("/updateRoomPrice")
+    public ModelAndView updateRoomPricePage(){
+        ModelAndView model = new ModelAndView("updateRoomPrice");
+        return model;
+    }
+
+    @PostMapping("/updateRoomPrice")
+    public String updateRoomPrice(@ModelAttribute("price") int price, @ModelAttribute("roomNumber") int id){
+        hotelsysService.updateRoomPrice(id, price);
+        return "redirect:/rooms.html";
+    }
+
+    @GetMapping("/updateCustomerPhone")
+    public ModelAndView updateCustomerPhonePage(){
+        ModelAndView model = new ModelAndView("updateCustomerPhone");
+        return model;
+    }
+
+    @PostMapping("/updateCustomerPhone")
+    public String updateCustomerPhone(@ModelAttribute("phone") String phone, @ModelAttribute("id") int id){
+        hotelsysService.updateCustomerPhone(id, phone);
+        return "redirect:/customers.html";
+    }
+
+    @GetMapping("/updateUserMgr")
+    public ModelAndView updateUserMgrPage(){
+        ModelAndView model = new ModelAndView("updateUserMgr");
+        return model;
+    }
+
+    @PostMapping("/updateUserMgr")
+    public String updateUserMgr(@ModelAttribute("userId") int userId, @ModelAttribute("managerId") int mgrId){
+        hotelsysService.updateUserMgr(userId, mgrId);
+        return "redirect:/users.html";
+    }
+
+    @GetMapping("/updateUserPhone")
+    public ModelAndView updateUserPhonePage(){
+        ModelAndView model = new ModelAndView("updateUserPhone");
+        return model;
+    }
+
+    @PostMapping("/updateUserPhone")
+    public String updateUserPhone(@ModelAttribute("userId") int userId, @ModelAttribute("phone") String phone){
+        hotelsysService.updateUserPhone(userId, phone);
+        return "redirect:/users.html";
+    }
+
+        @GetMapping("/updateUserRole")
+    public ModelAndView updateUserRolePage(){
+        ModelAndView model = new ModelAndView("updateUserRole");
+        return model;
+    }
+
+    @PostMapping("/updateUserRole")
+    public String updateUserRole(@ModelAttribute("userId") int userId, @ModelAttribute("roleId") int roleId){
+        hotelsysService.updateUserRole(userId, roleId);
+        return "redirect:/users.html";
+    }
 
 }
