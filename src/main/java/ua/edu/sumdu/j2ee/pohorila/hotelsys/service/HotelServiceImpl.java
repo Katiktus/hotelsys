@@ -39,8 +39,8 @@ public class HotelServiceImpl implements HotelsysService{
     }
 
     @Override
-    public void addUser(String name, int managerId, int roleId, String phoneNum, int hotelId) {
-        hotelsysDao.addUser(name, managerId, roleId, phoneNum, hotelId);
+    public void addUser(String name, int managerId, int roleId, int userId, String phoneNum, int hotelId) {
+        hotelsysDao.addUser(name, managerId, roleId, userId, phoneNum, hotelId);
     }
 
     @Override

@@ -88,15 +88,16 @@ public class HotelsysDaoImpl implements HotelsysDao{
     }
 
     @Override
-    public void addUser(String name, int managerId, int roleId, String phoneNum, int hotelId) {
+    public void addUser(String name, int managerId, int roleId, int userId, String phoneNum, int hotelId) {
         connect();
         try {
-            preparedStatement = connection.prepareStatement("INSERT INTO LAB3_EP_USER values (?,?,?,null,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO LAB3_EP_USER values (?,?,?,?,?,?)");
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, roleId);
             preparedStatement.setInt(3, managerId);
-            preparedStatement.setString(4, phoneNum);
-            preparedStatement.setInt(5, hotelId);
+            preparedStatement.setInt(4, userId);
+            preparedStatement.setString(5, phoneNum);
+            preparedStatement.setInt(6, hotelId);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

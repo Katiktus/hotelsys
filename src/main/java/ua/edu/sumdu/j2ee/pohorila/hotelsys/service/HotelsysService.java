@@ -17,7 +17,7 @@ public interface HotelsysService {
     void disconnect();
     void addCustomer(String name, String phoneNumber);
     void addRoom(int roomNumber, String roomType, int capacity, int price, int hotelID);
-    void addUser(String name, int managerId, int roleId, String phoneNum, int hotelId);
+    void addUser(String name, int managerId, int roleId, int userId, String phoneNum, int hotelId);
     CustomerList getAllCustomer();
     RoomList getAllRooms();
     UserList getAllUsers();
