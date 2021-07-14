@@ -34,5 +34,6 @@
 <a href="${pageContext.request.contextPath}/addCustomer.html">Create customer</a>
 <a href="${pageContext.request.contextPath}/deleteCustomer.html">Delete customer</a>
 <a href="${pageContext.request.contextPath}/updateCustomerPhone.html">Update phone number</a>
+<a href="${pageContext.request.contextPath}/index.jsp">Back</a>
 </body>
 </html>

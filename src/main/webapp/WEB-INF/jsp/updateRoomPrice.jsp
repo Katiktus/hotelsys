@@ -16,6 +16,6 @@
     <input title="Price" type="text" name="price" value="${price}">
     <input type="submit" value="Update">
 </form>
-
+<a href="${pageContext.request.contextPath}/rooms.html">Back</a>
 </body>
 </html>

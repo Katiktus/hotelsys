@@ -29,6 +29,6 @@
     <input title="Hotel id" type="text" name="hotelID" value="${room.hotelID}">
     <input type="submit" value="Create">
 </form>
-
+<a href="${pageContext.request.contextPath}/rooms.html">Back</a>
 </body>
 </html>

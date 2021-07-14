@@ -6,9 +6,7 @@
     </style>
     <title>Delete user</title>
 </head>
-<h1>Rooms list</h1>
 
-<br>
 <form action="${pageContext.request.contextPath}/deleteUser.html" method="post">
     <label>Enter user id</label>
     <input type="text" placeholder="Id" name="userId" value="${userId}"/>

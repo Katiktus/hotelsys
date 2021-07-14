@@ -18,6 +18,6 @@
     <input title="Phone number" type="text" name="phoneNumber" value="${customer.phoneNumber}">
     <input type="submit" value="Create">
 </form>
-
+<a href="${pageContext.request.contextPath}/customers.html">Back</a>
 </body>
 </html>

@@ -28,5 +28,6 @@
 <a href="${pageContext.request.contextPath}/updateUserMgr.html">Update mgr</a>
 <a href="${pageContext.request.contextPath}/updateUserPhone.html">Update phone</a>
 <a href="${pageContext.request.contextPath}/updateUserRole.html">Update role</a>
+<a href="${pageContext.request.contextPath}/index.jsp">Back</a>
 </body>
 </html>

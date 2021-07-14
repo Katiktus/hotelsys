@@ -16,6 +16,6 @@
     <input title="Phone" type="text" name="phone" value="${phone}">
     <input type="submit" value="Update">
 </form>
-
+<a href="${pageContext.request.contextPath}/users.html">Back</a>
 </body>
 </html>
