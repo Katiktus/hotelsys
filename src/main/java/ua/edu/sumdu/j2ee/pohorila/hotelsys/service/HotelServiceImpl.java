@@ -3,9 +3,10 @@ package ua.edu.sumdu.j2ee.pohorila.hotelsys.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.dao.HotelsysDao;
-import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.CustomerList;
-import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.RoomList;
-import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.UserList;
+import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.*;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @Service
 public class HotelServiceImpl implements HotelsysService{
@@ -18,7 +19,7 @@ public class HotelServiceImpl implements HotelsysService{
     }
 */
 
-    @Override
+   /* @Override
     public void connect() {
         hotelsysDao.connect();
     }
@@ -26,7 +27,7 @@ public class HotelServiceImpl implements HotelsysService{
     @Override
     public void disconnect() {
         hotelsysDao.disconnect();
-    }
+    }*/
 
     @Override
     public void addCustomer(String name, String phoneNumber) {
@@ -101,5 +102,25 @@ public class HotelServiceImpl implements HotelsysService{
     @Override
     public void removeUser(int id) {
         hotelsysDao.removeUser(id);
+    }
+
+    @Override
+    public void addOrder(int id, int customerId, int roomNum) {
+        hotelsysDao.addOrder(id, customerId, roomNum);
+    }
+
+    @Override
+    public OrderList getAllOrders() {
+        return hotelsysDao.getAllOrders();
+    }
+
+    @Override
+    public Order parseOrder(ResultSet resultSet) throws SQLException {
+        return hotelsysDao.parseOrder(resultSet);
+    }
+
+    @Override
+    public void removeOrder(int id) {
+        hotelsysDao.removeOrder(id);
     }
 }

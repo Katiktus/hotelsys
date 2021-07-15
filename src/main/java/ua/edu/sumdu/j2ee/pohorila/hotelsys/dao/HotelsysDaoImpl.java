@@ -302,4 +302,58 @@ public class HotelsysDaoImpl implements HotelsysDao{
         }
         disconnect();
     }
+
+    @Override
+    public void addOrder(int id, int customerId, int roomNum) {
+        connect();
+        try {
+            preparedStatement = connection.prepareStatement("insert into LAB3_EP_ORDER values (?, ?, ?)");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, customerId);
+            preparedStatement.setInt(3, roomNum);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        disconnect();
+    }
+
+    @Override
+    public OrderList getAllOrders() {
+        connect();
+        OrderList orderList = new OrderList();
+        try {
+            preparedStatement = connection.prepareStatement("select * from LAB3_EP_ORDER");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                orderList.add(parseOrder(resultSet));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        disconnect();
+        return orderList;
+    }
+
+    @Override
+    public Order parseOrder(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("LAB3_EP_ORDER_ID");
+        int customerId = resultSet.getInt("LAB3_EP_ORDER_CUSTOMER_ID");
+        int roomNumber = resultSet.getInt("LAB3_EP_ROOM_NUMBER");
+        Order order = new Order(id, customerId, roomNumber);
+        return order;
+    }
+
+    @Override
+    public void removeOrder(int id) {
+        connect();
+        try {
+            preparedStatement = connection.prepareStatement("delete from LAB3_EP_ORDER where LAB3_EP_ORDER_ID = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        disconnect();
+    }
 }

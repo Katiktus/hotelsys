@@ -31,4 +31,9 @@ public interface HotelsysDao {
     void removeCustomer(int id);
     void removeRoom(int id);
     void removeUser(int id);
+
+    void addOrder(int id, int customerId, int roomNum);
+    OrderList getAllOrders();
+    Order parseOrder(ResultSet resultSet) throws SQLException;
+    void removeOrder(int id);
 }

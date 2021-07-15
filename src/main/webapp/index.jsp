@@ -65,6 +65,11 @@
             <a href="users.html">Users</a>
         </td>
     </tr>
+    <tr>
+        <td>
+            <a href="orders.html">Orders</a>
+        </td>
+    </tr>
 </table>
 </body>
 </html>

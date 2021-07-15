@@ -11,9 +11,9 @@
 <br>
 <form action="${pageContext.request.contextPath}/updateRoomPrice.html" method="post">
     <p>Number</p>
-    <input title="Number" type="text" name="roomNumber" value="${roomNumber}">
+    <input title="Number" type="text" name="roomNumber" value="${roomNumber}" required>
     <p>Price</p>
-    <input title="Price" type="text" name="price" value="${price}">
+    <input title="Price" type="text" name="price" value="${price}" required>
     <input type="submit" value="Update">
 </form>
 <a href="${pageContext.request.contextPath}/rooms.html">Back</a>

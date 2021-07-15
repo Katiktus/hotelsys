@@ -11,7 +11,7 @@
 <br>
 <form action="${pageContext.request.contextPath}/deleteRoom.html" method="post">
 <label>Enter a number of room</label>
-<input type="text" placeholder="Number" name="roomNumber" value="${roomNumber}"/>
+<input type="text" placeholder="Number" name="roomNumber" value="${roomNumber}" required/>
 <input type="submit" value="Delete"/>
 </form>
 <br>

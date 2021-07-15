@@ -11,9 +11,9 @@
 <br>
 <form action="${pageContext.request.contextPath}/updateUserPhone.html" method="post">
     <p>Id</p>
-    <input title="Id" type="text" name="userId" value="${userId}">
+    <input title="Id" type="text" name="userId" value="${userId}" required>
     <p>Phone</p>
-    <input title="Phone" type="text" name="phone" value="${phone}">
+    <input title="Phone" type="text" name="phone" value="${phone}" required minlength="13" maxlength="13" pattern="+380[0-9]{9}">
     <input type="submit" value="Update">
 </form>
 <a href="${pageContext.request.contextPath}/users.html">Back</a>

@@ -1,6 +1,8 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,10 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Customer;
+import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Order;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Room;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.User;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.service.HotelsysService;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 
 @Controller
@@ -189,6 +193,40 @@ public class HotelsysController {
     public String updateUserRole(@ModelAttribute("userId") int userId, @ModelAttribute("roleId") int roleId){
         hotelsysService.updateUserRole(userId, roleId);
         return "redirect:/users.html";
+    }
+
+    @GetMapping("/addOrder")
+    public ModelAndView addOrderPage(){
+        ModelAndView model = new ModelAndView("addOrder");
+        return model;
+    }
+
+    @PostMapping("/addOrder")
+    public String addOrder(@ModelAttribute("order") Order order){
+        hotelsysService.addOrder(order.getOrderId(), order.getCustomerId(), order.getRoomNumber());
+        return "redirect:/orders.html";
+    }
+
+    @RequestMapping("/deleteOrder")
+    public ModelAndView deleteOrder(){
+        ModelAndView model = new ModelAndView("deleteOrder");
+        ArrayList<Order> objects = hotelsysService.getAllOrders().getArr();
+        model.addObject("ordersObj", objects);
+        return model;
+    }
+
+    @PostMapping("/deleteOrder")
+    public String deleteOrder(@ModelAttribute("orderId") int id){
+        hotelsysService.removeOrder(id);
+        return "redirect:/orders.html";
+    }
+
+    @RequestMapping("/orders")
+    public ModelAndView getOrders(@PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+        ModelAndView model = new ModelAndView("orders");
+        ArrayList<Order> objects = hotelsysService.getAllOrders().getArr();
+        model.addObject("ordersObj", objects);
+        return model;
     }
 
 }

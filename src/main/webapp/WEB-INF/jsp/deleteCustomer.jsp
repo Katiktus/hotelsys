@@ -19,7 +19,7 @@
 <br>
 <form action="${pageContext.request.contextPath}/deleteCustomer.html" method="post">
     <label>Enter customer id</label>
-    <input type="text" placeholder="Id" name="customerId" value="${customerId}"/>
+    <input type="text" placeholder="Id" name="customerId" value="${customerId}" required/>
     <input type="submit" value="Delete"/>
 </form>
 <br>

@@ -11,9 +11,9 @@
 <br>
 <form action="${pageContext.request.contextPath}/updateUserMgr.html" method="post">
     <p>Id</p>
-    <input title="Id" type="text" name="userId" value="${userId}">
+    <input title="Id" type="text" name="userId" value="${userId}" required>
     <p>Manager Id</p>
-    <input title="Mgr Id" type="text" name="managerId" value="${managerId}">
+    <input title="Mgr Id" type="text" name="managerId" value="${managerId}" required>
     <input type="submit" value="Update">
 </form>
 <a href="${pageContext.request.contextPath}/users.html">Back</a>

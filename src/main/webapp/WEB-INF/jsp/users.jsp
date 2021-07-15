@@ -14,12 +14,17 @@
         <th>Id</th>
         <th>Name</th>
         <th>Phone num</th>
+        <th>Role Id</th>
+        <th>Manager Id</th>
     </tr>
     <c:forEach items="${usersObj}" var="user">
         <tr>
             <td>${user.userId}</td>
             <td>${user.name}</td>
-            <td>${user.phoneNum}</td> </tr>
+            <td>${user.phoneNum}</td>
+            <td>${user.roleId}</td>
+            <td>${user.managerId}</td>
+        </tr>
     </c:forEach>
 </table>
 
