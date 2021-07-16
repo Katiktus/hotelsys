@@ -16,7 +16,7 @@
 <body>
 <h1>Fill the form, please</h1>
 <br>
-<form name="room" action="${pageContext.request.contextPath}/addRoom.html" method="post">
+<form name="room" action="${pageContext.request.contextPath}/addRoom" method="post">
     <p>Number</p>
     <input title="Number" type="text" name="roomNumber" value="${room.roomNumber}" required min="0">
     <p>Type</p> <!--Можно добавить выпадающий список-->
@@ -29,6 +29,6 @@
     <input title="Hotel id" type="text" name="hotelID" value="${room.hotelID}">
     <input type="submit" value="Create">
 </form>
-<a href="${pageContext.request.contextPath}/rooms.html">Back</a>
+<a href="${pageContext.request.contextPath}/rooms">Back</a>
 </body>
 </html>

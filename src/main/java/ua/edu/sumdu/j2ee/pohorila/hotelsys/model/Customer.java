@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.model;
 
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Customer {
@@ -59,4 +61,31 @@ public class Customer {
     public int hashCode() {
         return Objects.hash(customerId, name, phoneNumber);
     }
+
+    public static Comparator<Customer> idComparator = new Comparator<Customer>() {
+        @Override
+        public int compare(Customer o1, Customer o2) {
+            int first = o1.getCustomerId();
+            int second = o2.getCustomerId();
+            return first- second;
+        }
+    };
+
+    public static Comparator<Customer> nameComparator = new Comparator<Customer>() {
+        @Override
+        public int compare(Customer o1, Customer o2) {
+            String first = o1.getName().toUpperCase(Locale.ROOT);
+            String second = o2.getName().toUpperCase(Locale.ROOT);
+            return first.compareTo(second);
+        }
+    };
+
+    public static Comparator<Customer> phoneComparator = new Comparator<Customer>() {
+        @Override
+        public int compare(Customer o1, Customer o2) {
+            String first = o1.getPhoneNumber().toUpperCase(Locale.ROOT);
+            String second = o2.getPhoneNumber().toUpperCase(Locale.ROOT);
+            return first.compareTo(second);
+        }
+    };
 }

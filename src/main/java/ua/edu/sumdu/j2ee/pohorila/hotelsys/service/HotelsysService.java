@@ -36,4 +36,8 @@ public interface HotelsysService {
     Order parseOrder(ResultSet resultSet) throws SQLException;
     void removeOrder(int id);
 
+
+    UserList getUsersByName(String name);
+    RoomList getFreeRooms();
+
 }

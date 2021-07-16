@@ -52,22 +52,22 @@
 <table>
     <tr>
         <td>
-            <a href="rooms.html">Rooms</a>
+            <a href="rooms/roomNumber">Rooms</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="customers.html">Customers</a>
+            <a href="customers/id">Customers</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="users.html">Users</a>
+            <a href="users/id">Users</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="orders.html">Orders</a>
+            <a href="orders/id">Orders</a>
         </td>
     </tr>
 </table>

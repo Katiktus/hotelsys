@@ -18,9 +18,9 @@
 <h1>Customers list</h1>
 <table>
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Phone number</th>
+        <th><a href="${pageContext.request.contextPath}/customers/id">Id</a></th>
+        <th><a href="${pageContext.request.contextPath}/customers/name">Name</a></th>
+        <th><a href="${pageContext.request.contextPath}/customers/phoneNumber">Phone number</a></th>
     </tr>
     <c:forEach items="${customersObj}" var="customer">
         <tr>
@@ -31,9 +31,9 @@
     </c:forEach>
 </table>
 
-<a href="${pageContext.request.contextPath}/addCustomer.html">Create customer</a>
-<a href="${pageContext.request.contextPath}/deleteCustomer.html">Delete customer</a>
-<a href="${pageContext.request.contextPath}/updateCustomerPhone.html">Update phone number</a>
-<a href="${pageContext.request.contextPath}/index.jsp">Back</a>
+<a href="${pageContext.request.contextPath}/addCustomer">Create customer</a>
+<a href="${pageContext.request.contextPath}/deleteCustomer">Delete customer</a>
+<a href="${pageContext.request.contextPath}/updateCustomerPhone">Update phone number</a>
+<a href="${pageContext.request.contextPath}/">Back</a>
 </body>
 </html>

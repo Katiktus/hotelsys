@@ -13,15 +13,43 @@
         <%@include file='../css/hotel.css' %>
     </style>
     <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>$(document).ready(function() {
+        $('#freeRoom').submit(
+            function(event) {
+                const check = $('#check').val();
+                const data = 'checkbox='
+                    + encodeURIComponent(check);
+                $.ajax({
+                    type: "POST",
+                    url : "/roomsAjax/id",
+                    data : $('#check').val(),
+                    success : function(response) {
+                        document.getElementById("placeToShow").innerHTML=response;
+                        alert('success');
+                    },
+                    error : function(xhr, status, error) {
+                        document.getElementById("placeToShow").innerHTML=data;
+                    }
+                });
+                return false;
+            });
+    });
+    </script>
 </head>
 <body>
 <h1>Rooms list</h1>
+<form name="freeRoom" action="${pageContext.request.contextPath}/roomsAjax/{sort}" method="post">
+    <div>
+    Only free rooms<input type="checkbox" name="check" value="check"/>
+    </div>
+</form>
 <table>
     <tr>
-        <th>Number</th>
-        <th>Type</th>
-        <th>Capacity</th>
-        <th>Price</th>
+        <th><a href="${pageContext.request.contextPath}/rooms/roomNumber">Number</a></th>
+        <th><a href="${pageContext.request.contextPath}/rooms/roomType">Type</a></th>
+        <th><a href="${pageContext.request.contextPath}/rooms/capacity">Capacity</a></th>
+        <th><a href="${pageContext.request.contextPath}/rooms/price">Price</a></th>
     </tr>
     <c:forEach items="${roomsObj}" var="room">
         <tr>
@@ -31,10 +59,11 @@
             <td>${room.price}</td></tr>
     </c:forEach>
 </table>
+<a href="${pageContext.request.contextPath}/addRoom">Create room</a>
+<a href="${pageContext.request.contextPath}/deleteRoom">Delete room</a>
+<a href="${pageContext.request.contextPath}/updateRoomPrice">Update room price</a>
+<a href="${pageContext.request.contextPath}/">Back</a>
 
-<a href="${pageContext.request.contextPath}/addRoom.html">Create room</a>
-<a href="${pageContext.request.contextPath}/deleteRoom.html">Delete room</a>
-<a href="${pageContext.request.contextPath}/updateRoomPrice.html">Update room price</a>
-<a href="${pageContext.request.contextPath}/index.jsp">Back</a>
+<span id="placeToShow"></span>
 </body>
 </html>

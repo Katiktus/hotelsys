@@ -9,7 +9,7 @@
 <h1>Rooms list</h1>
 
 <br>
-<form action="${pageContext.request.contextPath}/deleteRoom.html" method="post">
+<form action="${pageContext.request.contextPath}/deleteRoom" method="post">
 <label>Enter a number of room</label>
 <input type="text" placeholder="Number" name="roomNumber" value="${roomNumber}" required/>
 <input type="submit" value="Delete"/>
@@ -33,6 +33,6 @@
 </table>
 
 
-<a href="${pageContext.request.contextPath}/rooms.html">Back</a>
+<a href="${pageContext.request.contextPath}/rooms">Back</a>
 </body>
 </html>

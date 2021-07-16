@@ -1,158 +1,173 @@
-CREATE table "LAB3_EP_USERROLE" (
-                                    "ROLEID"     NUMBER NOT NULL,
-                                    "ROLENAME"   VARCHAR2(20) NOT NULL,
-                                    constraint  "LAB3_EP_USERROLE_PK" primary key ("ROLEID")
-)
-/
+drop table LAB3_EP_ORDER;
+drop table LAB3_EP_ROOM;
+drop table LAB3_EP_CUSTOMER;
+drop table LAB3_EP_USER;
+drop table LAB3_EP_HOTEL;
+drop table LAB3_EP_USER_ROLE;
 
-CREATE sequence "LAB3_EP_USERROLE_SEQ"
-/
 
-CREATE trigger "BI_LAB3_EP_USERROLE"
-    before insert on "LAB3_EP_USERROLE"
+CREATE TABLE  "LAB3_EP_USER_ROLE"
+(	"LAB3_EP_USER_ROLE_ID" NUMBER,
+     "LAB3_EP_USER_ROLE_NAME" VARCHAR2(20),
+     CONSTRAINT "LAB3_EP_USER_ROLE_PK" PRIMARY KEY ("LAB3_EP_USER_ROLE_ID") ENABLE
+) ;
+
+CREATE OR REPLACE TRIGGER  "BI_LAB3_EP_USER_ROLE"
+    before insert on "LAB3_EP_USER_ROLE"
     for each row
 begin
-    if :NEW."ROLEID" is null then
-        select "LAB3_EP_USERROLE_SEQ".nextval into :NEW."ROLEID" from dual;
+    if :NEW."LAB3_EP_USER_ROLE_ID" is null then
+        select "LAB3_EP_USER_ROLE_SEQ".nextval into :NEW."LAB3_EP_USER_ROLE_ID" from dual;
     end if;
 end;
-/
 
-CREATE table "LAB3_EP_HOTEL" (
-                                 "HOTELID"    NUMBER NOT NULL,
-                                 "HOTELNAME"  VARCHAR2(50),
-                                 "ADDRESS"    VARCHAR2(100),
-                                 constraint  "LAB3_EP_HOTEL_PK" primary key ("HOTELID")
-)
 /
+ALTER TRIGGER  "BI_LAB3_EP_USER_ROLE" ENABLE;
 
-CREATE sequence "LAB3_EP_HOTEL_SEQ"
-/
+CREATE TABLE  "LAB3_EP_HOTEL"
+(	"LAB3_EP_HOTEL_NAME" VARCHAR2(20),
+     "LAB3_EP_HOTEL_ID" NUMBER,
+     CONSTRAINT "LAB3_EP_HOTEL_PK" PRIMARY KEY ("LAB3_EP_HOTEL_ID") ENABLE
+) ;
 
-CREATE trigger "BI_LAB3_EP_HOTEL"
+CREATE OR REPLACE TRIGGER  "BI_LAB3_EP_HOTEL"
     before insert on "LAB3_EP_HOTEL"
     for each row
 begin
-    if :NEW."HOTELID" is null then
-        select "LAB3_EP_HOTEL_SEQ".nextval into :NEW."HOTELID" from dual;
+    if :NEW."LAB3_EP_HOTEL_ID" is null then
+        select "LAB3_EP_HOTEL_SEQ".nextval into :NEW."LAB3_EP_HOTEL_ID" from dual;
+    end if;
+end;
+
+/
+ALTER TRIGGER  "BI_LAB3_EP_HOTEL" ENABLE;
+
+CREATE TABLE  "LAB3_EP_USER"
+(	"LAB3_EP_USER_NAME" VARCHAR2(20),
+     "LAB3_EP_ROLE_ID" NUMBER,
+     "LAB3_EP_MGR_ID" NUMBER,
+     "LAB3_EP_USER_ID" NUMBER,
+     "LAB3_EP_USER_PHONE_NUMBER" VARCHAR2(20),
+     "LAB3_EP_USER_HOTEL_ID" NUMBER,
+     CONSTRAINT "LAB3_EP_USER_CON" UNIQUE ("LAB3_EP_USER_ID") ENABLE
+) ;
+
+CREATE OR REPLACE TRIGGER  "BI_LAB3_EP_USER"
+    before insert
+    on LAB3_EP_USER
+    for each row
+begin
+    if :NEW."LAB3_EP_USER_ID" is null then
+        select "LAB3_EP_USER_SEQ".nextval into :NEW."LAB3_EP_USER_ID" from dual;
     end if;
 end;
 /
+ALTER TRIGGER  "BI_LAB3_EP_USER" ENABLE;
 
-CREATE table "LAB3_EP_CUSTOMER" (
-                                    "CUSTOMERID"   NUMBER,
-                                    "CUSTOMERNAME" VARCHAR2(20),
-                                    "PHONENUMBER"  VARCHAR2(13),
-                                    constraint  "LAB3_EP_CUSTOMER_PK" primary key ("CUSTOMERID")
-)
-/
+CREATE TABLE  "LAB3_EP_CUSTOMER"
+(	"LAB3_EP_CUSTOMER_ID" NUMBER,
+     "LAB3_EP_CUSTOMER_NAME" VARCHAR2(20),
+     "LAB3_EP_CUSTOMER_PHONE_NUMBER" VARCHAR2(20),
+     CONSTRAINT "LAB3_EP_CUSTOMER_PK" PRIMARY KEY ("LAB3_EP_CUSTOMER_ID") ENABLE
+) ;
 
-CREATE sequence "LAB3_EP_CUSTOMER_SEQ"
-/
-
-CREATE trigger "BI_LAB3_EP_CUSTOMER"
+CREATE OR REPLACE TRIGGER  "BI_LAB3_EP_CUSTOMER"
     before insert on "LAB3_EP_CUSTOMER"
     for each row
 begin
-    if :NEW."CUSTOMERID" is null then
-        select "LAB3_EP_CUSTOMER_SEQ".nextval into :NEW."CUSTOMERID" from dual;
+    if :NEW."LAB3_EP_CUSTOMER_ID" is null then
+        select "LAB3_EP_CUSTOMER_SEQ".nextval into :NEW."LAB3_EP_CUSTOMER_ID" from dual;
     end if;
 end;
-/
-
-CREATE table "LAB3_EP_ORDER" (
-                                 "ORDERID"    NUMBER,
-                                 "CUSTOMERID" NUMBER,
-                                 constraint  "LAB3_EP_ORDER_PK" primary key ("ORDERID")
-)
-/
-
-CREATE sequence "LAB3_EP_ORDER_SEQ"
-/
-
-CREATE trigger "BI_LAB3_EP_ORDER"
-    before insert on "LAB3_EP_ORDER"
-    for each row
-begin
-    if :NEW."ORDERID" is null then
-        select "LAB3_EP_ORDER_SEQ".nextval into :NEW."ORDERID" from dual;
-    end if;
-end;
-/
-
-ALTER TABLE "LAB3_EP_ORDER" ADD CONSTRAINT "LAB3_EP_ORDER_FK"
-    FOREIGN KEY ("CUSTOMERID")
-        REFERENCES "LAB3_EP_CUSTOMER" ("CUSTOMERID")
 
 /
+ALTER TRIGGER  "BI_LAB3_EP_CUSTOMER" ENABLE;
 
-CREATE table "LAB3_EP_USER" (
-                                "USERNAME"    VARCHAR2(20),
-                                "PHONENUMBER" VARCHAR2(13),
-                                "USERID"      NUMBER,
-                                "HOTELID"     NUMBER,
-                                "ROLEID"      NUMBER,
-                                "MANAGERID"   NUMBER,
-                                constraint  "LAB3_EP_USER_PK" primary key ("USERID")
-)
-/
+CREATE TABLE  "LAB3_EP_ROOM"
+(	"LAB3_EP_ROOM_NUMBER" NUMBER,
+     "LAB3_EP_ROOM_TYPE" VARCHAR2(15),
+     "LAB3_EP_ROOM_CAPACITY" NUMBER,
+     "LAB3_EP_ROOM_PRICE" NUMBER,
+     "LAB3_EP_ROOM_HOTEL_ID" NUMBER,
+     CONSTRAINT "LAB3_EP_ROOM_PK" PRIMARY KEY ("LAB3_EP_ROOM_NUMBER") ENABLE,
+     CONSTRAINT "LAB3_EP_ROOM_CK1" CHECK (LAB3_EP_ROOM_PRICE>0) ENABLE,
+     CONSTRAINT "LAB3_EP_ROOM_CON" CHECK ( "LAB3_EP_ROOM_CAPACITY" >=1) ENABLE
+) ;
 
-CREATE sequence "LAB3_EP_USER_SEQ"
-/
-
-CREATE trigger "BI_LAB3_EP_USER"
-    before insert on "LAB3_EP_USER"
-    for each row
-begin
-    if :NEW."USERID" is null then
-        select "LAB3_EP_USER_SEQ".nextval into :NEW."USERID" from dual;
-    end if;
-end;
-/
-
-ALTER TABLE "LAB3_EP_USER" ADD CONSTRAINT "LAB3_EP_USER_FK"
-    FOREIGN KEY ("HOTELID")
-        REFERENCES "LAB3_EP_HOTEL" ("HOTELID")
-
-/
-ALTER TABLE "LAB3_EP_USER" ADD CONSTRAINT "LAB3_EP_USER_FK2"
-    FOREIGN KEY ("ROLEID")
-        REFERENCES "LAB3_EP_USERROLE" ("ROLEID")
-
-/
-
-CREATE table "LAB3_EP_ROOM" (
-                                "ROOMNUMBER" NUMBER,
-                                "ROOMTYPE"   VARCHAR2(10),
-                                "CAPACITY"   NUMBER,
-                                "PRICE"      NUMBER,
-                                "CUSTOMERID" NUMBER,
-                                "HOTELID"    NUMBER,
-                                constraint  "LAB3_EP_ROOM_PK" primary key ("ROOMNUMBER")
-)
-/
-
-CREATE sequence "LAB3_EP_ROOM_SEQ"
-/
-
-CREATE trigger "BI_LAB3_EP_ROOM"
+CREATE OR REPLACE TRIGGER  "BI_LAB3_EP_ROOM"
     before insert on "LAB3_EP_ROOM"
     for each row
 begin
-    if :NEW."ROOMNUMBER" is null then
-        select "LAB3_EP_ROOM_SEQ".nextval into :NEW."ROOMNUMBER" from dual;
+    if :NEW."LAB3_EP_ROOM_NUMBER" is null then
+        select "LAB3_EP_ROOM_SEQ".nextval into :NEW."LAB3_EP_ROOM_NUMBER" from dual;
     end if;
 end;
-/
-
-ALTER TABLE "LAB3_EP_ROOM" ADD CONSTRAINT "LAB3_EP_ROOM_FK"
-    FOREIGN KEY ("CUSTOMERID")
-        REFERENCES "LAB3_EP_CUSTOMER" ("CUSTOMERID")
 
 /
-ALTER TABLE "LAB3_EP_ROOM" ADD CONSTRAINT "LAB3_EP_ROOM_FK2"
-    FOREIGN KEY ("HOTELID")
-        REFERENCES "LAB3_EP_HOTEL" ("HOTELID")
-            ON DELETE CASCADE
+ALTER TRIGGER  "BI_LAB3_EP_ROOM" ENABLE;
+
+CREATE TABLE  "LAB3_EP_ORDER"
+(	"LAB3_EP_ORDER_ID" NUMBER,
+     "LAB3_EP_ORDER_CUSTOMER_ID" NUMBER,
+     "LAB3_EP_ROOM_NUMBER" NUMBER NOT NULL ENABLE,
+     CONSTRAINT "LAB3_EP_ORDER_PK" PRIMARY KEY ("LAB3_EP_ORDER_ID") ENABLE
+) ;
+
+CREATE OR REPLACE TRIGGER  "BI_LAB3_EP_ORDER"
+    before insert on "LAB3_EP_ORDER"
+    for each row
+begin
+    if :NEW."LAB3_EP_ORDER_ID" is null then
+        select "LAB3_EP_ORDER_SEQ".nextval into :NEW."LAB3_EP_ORDER_ID" from dual;
+    end if;
+end;
 
 /
+ALTER TRIGGER  "BI_LAB3_EP_ORDER" ENABLE;
+
+insert into KATE.LAB3_EP_USER_ROLE values (101, 'Manager');
+insert into KATE.LAB3_EP_USER_ROLE values (102, 'Cleaner');
+insert into KATE.LAB3_EP_USER_ROLE values (103, 'Cook');
+insert into KATE.LAB3_EP_USER_ROLE values (104, 'Receptionist');
+
+insert into KATE.LAB3_EP_HOTEL values ('Hotel', 1);
+
+insert into  KATE.LAB3_EP_USER (LAB3_EP_USER_NAME, LAB3_EP_ROLE_ID, LAB3_EP_MGR_ID, LAB3_EP_USER_PHONE_NUMBER, LAB3_EP_USER_HOTEL_ID) values ('Adam', 102, 201, '+380992564981', 1);
+insert into  KATE.LAB3_EP_USER (LAB3_EP_USER_NAME, LAB3_EP_ROLE_ID, LAB3_EP_MGR_ID, LAB3_EP_USER_PHONE_NUMBER, LAB3_EP_USER_HOTEL_ID) values ('Eva', 103, 201, '+380991122334', 1);
+insert into  KATE.LAB3_EP_USER (LAB3_EP_USER_NAME, LAB3_EP_ROLE_ID, LAB3_EP_MGR_ID, LAB3_EP_USER_PHONE_NUMBER, LAB3_EP_USER_HOTEL_ID) values ('Alex', 104, 201, '+380997777777', 1);
+insert into  KATE.LAB3_EP_USER (LAB3_EP_USER_NAME, LAB3_EP_ROLE_ID, LAB3_EP_MGR_ID, LAB3_EP_USER_PHONE_NUMBER, LAB3_EP_USER_HOTEL_ID) values ('Hanna', 104, 201, '+380993333333', 1);
+insert into  KATE.LAB3_EP_USER (LAB3_EP_USER_NAME, LAB3_EP_ROLE_ID, LAB3_EP_MGR_ID, LAB3_EP_USER_PHONE_NUMBER, LAB3_EP_USER_HOTEL_ID) values ('Denis', 103, 201, '+380992525314', 1);
+insert into  KATE.LAB3_EP_USER (LAB3_EP_USER_NAME, LAB3_EP_ROLE_ID, LAB3_EP_MGR_ID, LAB3_EP_USER_PHONE_NUMBER, LAB3_EP_USER_HOTEL_ID) values ('Mariam', 101, 201, '+380991111111', 1);
+insert into  KATE.LAB3_EP_USER (LAB3_EP_USER_NAME, LAB3_EP_ROLE_ID, LAB3_EP_MGR_ID, LAB3_EP_USER_PHONE_NUMBER, LAB3_EP_USER_HOTEL_ID) values ('Julian', 102, 206, '+380992222222', 1);
+insert into  KATE.LAB3_EP_USER (LAB3_EP_USER_NAME, LAB3_EP_ROLE_ID, LAB3_EP_MGR_ID, LAB3_EP_USER_PHONE_NUMBER, LAB3_EP_USER_HOTEL_ID) values ('Norah', 103, 206, '+380994444444', 1);
+insert into  KATE.LAB3_EP_USER (LAB3_EP_USER_NAME, LAB3_EP_ROLE_ID, LAB3_EP_MGR_ID, LAB3_EP_USER_PHONE_NUMBER, LAB3_EP_USER_HOTEL_ID) values ('Jacob', 104, 206, '+380995555555', 1);
+
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('Lana', '+380997777777');
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('Richard', '+380991212333');
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('George', '+380995256467');
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('Brian', '+380999845632');
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('Monica', '+380997846531');
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('Sarah', '+380993215646');
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('Abigail', '+380993215975');
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('Matilda', '+380999875321');
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('Anthony', '+380993345649');
+insert into LAB3_EP_CUSTOMER(LAB3_EP_CUSTOMER_NAME, LAB3_EP_CUSTOMER_PHONE_NUMBER) values ('David', '+380999876531');
+
+insert into LAB3_EP_ROOM values (101,'double lux',2,1500, 1);
+insert into LAB3_EP_ROOM values (102,'lux',3,2500, 1);
+insert into LAB3_EP_ROOM values (103,'standart',3,1000, 1);
+insert into LAB3_EP_ROOM values (104,'lux',1,2000, 1);
+insert into LAB3_EP_ROOM values (105,'lux',2,2200, 1);
+
+insert into LAB3_EP_ROOM values (201,'double lux',2,1500, 1);
+insert into LAB3_EP_ROOM values (202,'lux',3,2500, 1);
+insert into LAB3_EP_ROOM values (203,'standart',3,1000, 1);
+insert into LAB3_EP_ROOM values (204,'lux',1,2000, 1);
+insert into LAB3_EP_ROOM values (205,'lux',2,2200, 1);
+
+insert into LAB3_EP_ORDER values (10001, 1, 201);
+insert into LAB3_EP_ORDER values (10002, 3, 105);
+insert into LAB3_EP_ORDER values (10003, 2, 103);
+insert into LAB3_EP_ORDER values (10004, 4, 204);
+
+commit;

@@ -3,11 +3,9 @@ package ua.edu.sumdu.j2ee.pohorila.hotelsys.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Customer;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Order;
@@ -17,6 +15,9 @@ import ua.edu.sumdu.j2ee.pohorila.hotelsys.service.HotelsysService;
 
 import java.awt.print.Pageable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
 
 @Controller
 public class HotelsysController {
@@ -30,30 +31,6 @@ public class HotelsysController {
         String message = "<br><div style='text-align:center;'>"
                 + "<h3>Hello World, this is Tested Spring MVC</h3></div><br><br>";
         return new ModelAndView("welcome", "message", message);
-    }
-
-    @RequestMapping("/users")
-    public ModelAndView getUsers() {
-        ModelAndView model = new ModelAndView("users");
-        ArrayList<User> objects = hotelsysService.getAllUsers().getArr();
-        model.addObject("usersObj", objects);
-        return model;
-    }
-
-    @RequestMapping("/customers")
-    public ModelAndView getCustomers() {
-        ModelAndView model = new ModelAndView("customers");
-        ArrayList<Customer> objects = hotelsysService.getAllCustomer().getArr();
-        model.addObject("customersObj", objects);
-        return model;
-    }
-
-    @RequestMapping("/rooms")
-    public ModelAndView getRooms() {
-        ModelAndView model = new ModelAndView("rooms");
-        ArrayList<Room> objects = hotelsysService.getAllRooms().getArr();
-        model.addObject("roomsObj", objects);
-        return model;
     }
 
     @RequestMapping("/deleteUser")
@@ -221,12 +198,115 @@ public class HotelsysController {
         return "redirect:/orders.html";
     }
 
-    @RequestMapping("/orders")
-    public ModelAndView getOrders(@PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+    @RequestMapping(value = "/orders/{sort}")
+    public ModelAndView getOrders(@PathVariable String sort) {
         ModelAndView model = new ModelAndView("orders");
         ArrayList<Order> objects = hotelsysService.getAllOrders().getArr();
+        if(sort.equals("id")){
+            Collections.sort(objects, Order.idComparator);
+        }
+        if(sort.equals("customerId")){
+            Collections.sort(objects, Order.customerComparator);
+        }
+        if(sort.equals("roomNumber")){
+            Collections.sort(objects, Order.roomComparator);
+        }
         model.addObject("ordersObj", objects);
         return model;
     }
 
+    @RequestMapping("/users/{sort}")
+    public ModelAndView getUsers(@PathVariable String sort) {
+        ModelAndView model = new ModelAndView("users");
+        ArrayList<User> objects = hotelsysService.getAllUsers().getArr();
+        if(sort.equals("id")){
+            Collections.sort(objects, User.userIdComparator);
+        }
+        if(sort.equals("managerId")){
+            Collections.sort(objects, User.managerIdComparator);
+        }
+        if(sort.equals("name")){
+            Collections.sort(objects, User.nameComparator);
+        }
+        if(sort.equals("phoneNumber")){
+            Collections.sort(objects, User.phoneComparator);
+        }
+        if(sort.equals("roleId")){
+            Collections.sort(objects, User.roleIdComparator);
+        }
+        model.addObject("usersObj", objects);
+        return model;
+    }
+
+    @RequestMapping("/customers/{sort}")
+    public ModelAndView getCustomers(@PathVariable String sort) {
+        ModelAndView model = new ModelAndView("customers");
+        ArrayList<Customer> objects = hotelsysService.getAllCustomer().getArr();
+        if(sort.equals("id")){
+            Collections.sort(objects, Customer.idComparator);
+        }
+        if(sort.equals("name")){
+            Collections.sort(objects, Customer.nameComparator);
+        }
+        if(sort.equals("phoneNumber")){
+            Collections.sort(objects, Customer.phoneComparator);
+        }
+        model.addObject("customersObj", objects);
+        return model;
+    }
+
+    @RequestMapping("/rooms/{sort}" )
+    public ModelAndView getRooms(@PathVariable String sort) {
+        ModelAndView model = new ModelAndView("rooms");
+        ArrayList<Room> objects = hotelsysService.getAllRooms().getArr();
+        if(sort.equals("capacity")){
+            Collections.sort(objects, Room.capacityComparator);
+        }
+        if(sort.equals("roomNumber")){
+            Collections.sort(objects, Room.roomNumComparator);
+        }
+        if(sort.equals("price")){
+            Collections.sort(objects, Room.priceComparator);
+        }
+        if(sort.equals("roomType")){
+            Collections.sort(objects, Room.roomTypeComparator);
+        }
+        model.addObject("roomsObj", objects);
+        return model;
+    }
+
+    @RequestMapping(value = "/roomsAjax")
+    public @ResponseBody String roomAjax(
+            @ModelAttribute("check") String value) {
+        String response = "<table>\n" +
+                "    <tr>\n" +
+                "        <th>Number</th>\n" +
+                "        <th>Type</th>\n" +
+                "        <th>Capacity</th>\n" +
+                "        <th>Price</th>\n" +
+                "    </tr>";
+        ArrayList<Room> objects;
+        if(value == null) {
+            objects = hotelsysService.getAllRooms().getArr();
+        }else{
+            objects = hotelsysService.getFreeRooms().getArr();
+        }
+        for (Room room:objects){
+            response += "" +
+                    "        <tr>\n" +
+                    "            <td>"+room.getRoomNumber()+"</td>\n" +
+                    "            <td>"+room.getRoomType()+"</td>\n" +
+                    "            <td>"+room.getCapacity()+"</td>\n" +
+                    "            <td>"+room.getPrice()+"</td></tr>";
+        }
+        return response+"</table>";
+    }
+
+   @RequestMapping(value = "/1", method = RequestMethod.GET)
+   @ResponseBody
+   public ModelAndView ajaxPage(){
+        ModelAndView modelAndView = new ModelAndView("1");
+        return modelAndView;
+
+    }
 }

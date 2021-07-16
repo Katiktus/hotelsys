@@ -9,13 +9,13 @@
 <body>
 <h1>Fill the form, please</h1>
 <br>
-<form action="${pageContext.request.contextPath}/updateRoomPrice.html" method="post">
+<form action="${pageContext.request.contextPath}/updateRoomPrice" method="post">
     <p>Number</p>
     <input title="Number" type="text" name="roomNumber" value="${roomNumber}" required>
     <p>Price</p>
     <input title="Price" type="text" name="price" value="${price}" required>
     <input type="submit" value="Update">
 </form>
-<a href="${pageContext.request.contextPath}/rooms.html">Back</a>
+<a href="${pageContext.request.contextPath}/rooms">Back</a>
 </body>
 </html>

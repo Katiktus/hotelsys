@@ -1,5 +1,6 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.model;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Order {
@@ -50,12 +51,32 @@ public class Order {
         return Objects.hash(orderId, customerId, roomNumber);
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderId=" + orderId +
-                ", customerId=" + customerId +
-                ", roomNumber=" + roomNumber +
-                '}';
-    }
+    public static Comparator<Order> idComparator = new Comparator<Order>() {
+       //@Override
+        public int compare(Order o1, Order o2) {
+            int first = o1.getOrderId();
+            int second = o2.getOrderId();
+            return first- second;
+        }
+    };
+
+    public static Comparator<Order> customerComparator = new Comparator<Order>() {
+        //@Override
+        public int compare(Order o1, Order o2) {
+            int first = o1.getCustomerId();
+            int second = o2.getCustomerId();
+            return first- second;
+        }
+    };
+
+    public static Comparator<Order> roomComparator = new Comparator<Order>() {
+        //@Override
+        public int compare(Order o1, Order o2) {
+            int first = o1.getRoomNumber();
+            int second = o2.getRoomNumber();
+            return first- second;
+        }
+    };
+
+
 }

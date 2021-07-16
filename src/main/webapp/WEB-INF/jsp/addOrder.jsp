@@ -9,7 +9,7 @@
 <body>
 <h1>Fill the form, please</h1>
 <br>
-<form name="order" action="${pageContext.request.contextPath}/addOrder.html" method="post">
+<form name="order" action="${pageContext.request.contextPath}/addOrder" method="post">
     <p>Id</p>
     <input title="Id" type="text" name="orderId" value="${order.orderId}" required>
     <p>Customer id</p>
@@ -18,6 +18,6 @@
     <input title="Room number" type="text" name="roomNumber" value="${order.roomNumber}" min="0" required>
     <input type="submit" value="Create">
 </form>
-<a href="${pageContext.request.contextPath}/orders.html">Back</a>
+<a href="${pageContext.request.contextPath}/orders">Back</a>
 </body>
 </html>

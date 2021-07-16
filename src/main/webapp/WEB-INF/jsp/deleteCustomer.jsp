@@ -17,7 +17,7 @@
 <body>
 
 <br>
-<form action="${pageContext.request.contextPath}/deleteCustomer.html" method="post">
+<form action="${pageContext.request.contextPath}/deleteCustomer" method="post">
     <label>Enter customer id</label>
     <input type="text" placeholder="Id" name="customerId" value="${customerId}" required/>
     <input type="submit" value="Delete"/>
@@ -40,6 +40,6 @@
     </c:forEach>
 </table>
 
-<a href="${pageContext.request.contextPath}/customers.html">Back</a>
+<a href="${pageContext.request.contextPath}/customers">Back</a>
 </body>
 </html>

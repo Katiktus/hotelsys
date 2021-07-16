@@ -9,7 +9,7 @@
 <body>
 <h1>Fill the form, please</h1>
 <br>
-<form name="user" action="${pageContext.request.contextPath}/addUser.html" method="post">
+<form name="user" action="${pageContext.request.contextPath}/addUser" method="post">
     <p>Id</p>
     <input title="Id" type="text" name="userId" value="${user.userId}" required>
     <p>Name</p>
@@ -25,6 +25,6 @@
     <input title="Hotel Id" type="text" name="hotelId" value="${user.hotelId}">
     <input type="submit" value="Create">
 </form>
-<a href="${pageContext.request.contextPath}/users.html">Back</a>
+<a href="${pageContext.request.contextPath}/users">Back</a>
 </body>
 </html>

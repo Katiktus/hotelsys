@@ -26,13 +26,7 @@
     <url-pattern>/welcome.jsp</url-pattern>
     <url-pattern>/index.jsp</url-pattern>
     <url-pattern>/welcome.html</url-pattern>
-    <url-pattern>/users.html</url-pattern>
-      <url-pattern>/users.jsp</url-pattern>
-      <url-pattern>/customers.html</url-pattern>
-      <url-pattern>/customers.jsp</url-pattern>
-      <url-pattern>/rooms.html</url-pattern>
-      <url-pattern>/rooms.jsp</url-pattern>
-    <url-pattern>*.html</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
 
 </web-app>

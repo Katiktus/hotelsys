@@ -11,9 +11,9 @@
 <h1>Orders list</h1>
 <table>
     <tr>
-        <th>Id</th>
-        <th>Customer ID</th>
-        <th>Room number</th>
+        <th><a href="${pageContext.request.contextPath}/orders/id">Id</a></th>
+        <th><a href="${pageContext.request.contextPath}/orders/customerId">Customer ID</a></th>
+        <th><a href="${pageContext.request.contextPath}/orders/roomNumber">Room number</a></th>
     </tr>
     <c:forEach items="${ordersObj}" var="order">
         <tr>
@@ -23,8 +23,8 @@
     </c:forEach>
 </table>
 
-<a href="${pageContext.request.contextPath}/addOrder.html">Create order</a>
-<a href="${pageContext.request.contextPath}/deleteOrder.html">Delete order</a>
-<a href="${pageContext.request.contextPath}/index.jsp">Back</a>
+<a href="${pageContext.request.contextPath}/addOrder">Create order</a>
+<a href="${pageContext.request.contextPath}/deleteOrder">Delete order</a>
+<a href="${pageContext.request.contextPath}/">Back</a>
 </body>
 </html>

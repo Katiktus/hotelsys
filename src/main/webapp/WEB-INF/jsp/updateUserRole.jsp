@@ -9,13 +9,13 @@
 <body>
 <h1>Fill the form, please</h1>
 <br>
-<form action="${pageContext.request.contextPath}/updateUserRole.html" method="post">
+<form action="${pageContext.request.contextPath}/updateUserRole" method="post">
     <p>Id</p>
     <input title="Id" type="text" name="userId" value="${userId}" required >
     <p>Role Id</p>
     <input title="Role Id" type="text" name="roleId" value="${roleId}" required>
     <input type="submit" value="Update">
 </form>
-<a href="${pageContext.request.contextPath}/users.html">Back</a>
+<a href="${pageContext.request.contextPath}/users">Back</a>
 </body>
 </html>

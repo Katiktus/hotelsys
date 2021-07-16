@@ -2,6 +2,8 @@ package ua.edu.sumdu.j2ee.pohorila.hotelsys.model;
 
 import org.springframework.context.annotation.Bean;
 
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Objects;
 
 public class User {
@@ -92,4 +94,60 @@ public class User {
     public void setHotelID(int hotelID) {
         this.hotelID = hotelID;
     }
+
+    public static Comparator<User> nameComparator = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+            String first = o1.getName().toUpperCase(Locale.ROOT);
+            String second = o2.getName().toUpperCase(Locale.ROOT);
+            return first.compareTo(second);
+        }
+    };
+
+    public static Comparator<User> phoneComparator = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+            String first = o1.getPhoneNum().toUpperCase(Locale.ROOT);
+            String second = o2.getPhoneNum().toUpperCase(Locale.ROOT);
+            return first.compareTo(second);
+        }
+    };
+
+    public static Comparator<User> managerIdComparator = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+            int first = o1.getManagerId();
+            int second = o2.getManagerId();
+            return first-second;
+        }
+    };
+
+    public static Comparator<User> userIdComparator = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+            int first = o1.getUserId();
+            int second = o2.getUserId();
+            return first-second;
+        }
+    };
+
+    public static Comparator<User> roleIdComparator = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+            int first = o1.getRoleId();
+            int second = o2.getRoleId();
+            return first-second;
+        }
+    };
+
+    public static Comparator<User> hotelIdComparator = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+            int first = o1.getHotelID();
+            int second = o2.getHotelID();
+            return first-second;
+        }
+    };
+
+
 }

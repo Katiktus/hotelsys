@@ -123,4 +123,14 @@ public class HotelServiceImpl implements HotelsysService{
     public void removeOrder(int id) {
         hotelsysDao.removeOrder(id);
     }
+
+    @Override
+    public UserList getUsersByName(String name) {
+        return hotelsysDao.getUsersByName(name);
+    }
+
+    @Override
+    public RoomList getFreeRooms() {
+        return hotelsysDao.getFreeRooms();
+    }
 }

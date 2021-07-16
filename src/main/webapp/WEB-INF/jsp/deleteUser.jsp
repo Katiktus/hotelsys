@@ -7,7 +7,7 @@
     <title>Delete user</title>
 </head>
 
-<form action="${pageContext.request.contextPath}/deleteUser.html" method="post">
+<form action="${pageContext.request.contextPath}/deleteUser" method="post">
     <label>Enter user id</label>
     <input type="text" placeholder="Id" name="userId" value="${userId}" required/>
     <input type="submit" value="Delete"/>
@@ -36,6 +36,6 @@
 
 
 
-<a href="${pageContext.request.contextPath}/users.html">Back</a>
+<a href="${pageContext.request.contextPath}/users">Back</a>
 </body>
 </html>

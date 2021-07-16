@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.model;
 
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Room {
@@ -79,4 +81,50 @@ public class Room {
     public void setHotelID(int hotelID) {
         this.hotelID = hotelID;
     }
+
+    public static Comparator<Room> roomNumComparator = new Comparator<Room>() {
+        @Override
+        public int compare(Room o1, Room o2) {
+            int first = o1.getRoomNumber();
+            int second = o2.getRoomNumber();
+            return first-second;
+        }
+    };
+
+    public static Comparator<Room> roomTypeComparator = new Comparator<Room>() {
+        @Override
+        public int compare(Room o1, Room o2) {
+            String first = o1.getRoomType().toUpperCase(Locale.ROOT);
+            String second = o2.getRoomType().toUpperCase(Locale.ROOT);
+            return first.compareTo(second);
+        }
+    };
+
+    public static Comparator<Room> capacityComparator = new Comparator<Room>() {
+        @Override
+        public int compare(Room o1, Room o2) {
+            int first = o1.getCapacity();
+            int second = o2.getCapacity();
+            return first-second;
+        }
+    };
+
+    public static Comparator<Room> priceComparator = new Comparator<Room>() {
+        @Override
+        public int compare(Room o1, Room o2) {
+            int first = o1.getPrice();
+            int second = o2.getPrice();
+            return first-second;
+        }
+    };
+
+    public static Comparator<Room> hotelIdComparator = new Comparator<Room>() {
+        @Override
+        public int compare(Room o1, Room o2) {
+            int first = o1.getHotelID();
+            int second = o2.getHotelID();
+            return first-second;
+        }
+    };
+
 }

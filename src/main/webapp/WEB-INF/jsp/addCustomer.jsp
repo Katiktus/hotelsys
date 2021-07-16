@@ -9,7 +9,7 @@
 <body>
 <h1>Fill the form, please</h1>
 <br>
-<form name="customer" action="${pageContext.request.contextPath}/addCustomer.html" method="post">
+<form name="customer" action="${pageContext.request.contextPath}/addCustomer" method="post">
     <p>Id</p>
     <input title="Id" type="text" name="customerId" value="${customer.customerId}" required>
     <p>Name</p>
@@ -18,6 +18,6 @@
     <input title="Phone number" type="text" name="phoneNumber" value="${customer.phoneNumber}" minlength="13" maxlength="13" pattern="+380[0-9]{9}">
     <input type="submit" value="Create">
 </form>
-<a href="${pageContext.request.contextPath}/customers.html">Back</a>
+<a href="${pageContext.request.contextPath}/customers">Back</a>
 </body>
 </html>

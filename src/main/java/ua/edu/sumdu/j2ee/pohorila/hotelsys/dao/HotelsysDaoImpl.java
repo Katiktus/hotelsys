@@ -1,5 +1,6 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.dao;
 
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.stereotype.Repository;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.*;
 
@@ -7,10 +8,11 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
+import java.sql.*;
 import java.util.Hashtable;
 
 @Repository
@@ -38,7 +40,18 @@ public class HotelsysDaoImpl implements HotelsysDao{
             if(!connection.isClosed()){
                 System.out.println("Connection successful...");
             }
-        } catch (SQLException | NamingException e) {
+            String[] tables = {"LAB3_EP_CUSTOMER", "LAB3_EP_HOTEL", "LAB3_EP_ORDER", "LAB3_EP_ROOM", "LAB3_EP_USER", "LAB3_EP_USER_ROLE"};
+            DatabaseMetaData metadata = connection.getMetaData();
+
+            for(int i=0; i< tables.length; i++) {
+                ResultSet rs = metadata.getTables(null, null, tables[i], null);
+                if(!rs.next()) {
+                    ScriptRunner sr = new ScriptRunner(connection);
+                    Reader reader = new BufferedReader(new FileReader("script.sql"));
+                    sr.runScript(reader);
+                }
+            }
+        } catch (SQLException | NamingException | FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -350,10 +363,46 @@ public class HotelsysDaoImpl implements HotelsysDao{
         try {
             preparedStatement = connection.prepareStatement("delete from LAB3_EP_ORDER where LAB3_EP_ORDER_ID = ?");
             preparedStatement.setInt(1, id);
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         disconnect();
+    }
+
+    @Override
+    public UserList getUsersByName(String name) {
+        connect();
+        UserList userList = new UserList();
+        try {
+            preparedStatement = connection.prepareStatement("select * from LAB3_EP_USER where LAB3_EP_USER_NAME LIKE ?");
+            preparedStatement.setString(1, name+'%');
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                userList.add(parseUser(resultSet));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        disconnect();
+        return userList;
+    }
+
+    @Override
+    public RoomList getFreeRooms() {
+        connect();
+        RoomList roomList = new RoomList();
+        try {
+            preparedStatement = connection.prepareStatement("select DISTINCT * from LAB3_EP_ROOM rooms where LAB3_EP_ROOM_NUMBER != all(select LAB3_EP_ROOM_NUMBER from LAB3_EP_ORDER)");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                roomList.add(parseRoom(resultSet));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        disconnect();
+        return roomList;
     }
 }
