@@ -13,36 +13,11 @@
         <%@include file='../css/hotel.css' %>
     </style>
     <title>Title</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>$(document).ready(function() {
-        $('#freeRoom').submit(
-            function(event) {
-                const check = $('#check').val();
-                const data = 'checkbox='
-                    + encodeURIComponent(check);
-                $.ajax({
-                    type: "POST",
-                    url : "/roomsAjax/id",
-                    data : $('#check').val(),
-                    success : function(response) {
-                        document.getElementById("placeToShow").innerHTML=response;
-                        alert('success');
-                    },
-                    error : function(xhr, status, error) {
-                        document.getElementById("placeToShow").innerHTML=data;
-                    }
-                });
-                return false;
-            });
-    });
-    </script>
 </head>
 <body>
 <h1>Rooms list</h1>
-<form name="freeRoom" action="${pageContext.request.contextPath}/roomsAjax/{sort}" method="post">
-    <div>
-    Only free rooms<input type="checkbox" name="check" value="check"/>
-    </div>
+<form action="${pageContext.request.contextPath}/freeRooms/roomNumber" method="post">
+    <input type="submit" value="Get free rooms"/>
 </form>
 <table>
     <tr>

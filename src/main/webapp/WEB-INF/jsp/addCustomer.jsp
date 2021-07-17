@@ -10,8 +10,6 @@
 <h1>Fill the form, please</h1>
 <br>
 <form name="customer" action="${pageContext.request.contextPath}/addCustomer" method="post">
-    <p>Id</p>
-    <input title="Id" type="text" name="customerId" value="${customer.customerId}" required>
     <p>Name</p>
     <input title="Name" type="text" name="name" value="${customer.name}">
     <p>Phone number</p>

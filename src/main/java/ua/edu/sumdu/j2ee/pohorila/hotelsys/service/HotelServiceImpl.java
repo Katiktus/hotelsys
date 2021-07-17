@@ -35,13 +35,13 @@ public class HotelServiceImpl implements HotelsysService{
     }
 
     @Override
-    public void addRoom(int roomNumber, String roomType, int capacity, int price, int hotelID) {
-        hotelsysDao.addRoom(roomNumber, roomType, capacity, price, hotelID);
+    public void addRoom(String roomType, int capacity, int price, int hotelID) {
+        hotelsysDao.addRoom(roomType, capacity, price, hotelID);
     }
 
     @Override
-    public void addUser(String name, int managerId, int roleId, int userId, String phoneNum, int hotelId) {
-        hotelsysDao.addUser(name, managerId, roleId, userId, phoneNum, hotelId);
+    public void addUser(String name, int managerId, int roleId, String phoneNum, int hotelId) {
+        hotelsysDao.addUser(name, managerId, roleId, phoneNum, hotelId);
     }
 
     @Override
@@ -105,8 +105,8 @@ public class HotelServiceImpl implements HotelsysService{
     }
 
     @Override
-    public void addOrder(int id, int customerId, int roomNum) {
-        hotelsysDao.addOrder(id, customerId, roomNum);
+    public void addOrder(int customerId, int roomNum) {
+        hotelsysDao.addOrder(customerId, roomNum);
     }
 
     @Override

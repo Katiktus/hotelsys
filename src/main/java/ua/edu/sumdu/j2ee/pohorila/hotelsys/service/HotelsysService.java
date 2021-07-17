@@ -17,8 +17,8 @@ public interface HotelsysService {
    // void connect();
   //  void disconnect();
     void addCustomer(String name, String phoneNumber);
-    void addRoom(int roomNumber, String roomType, int capacity, int price, int hotelID);
-    void addUser(String name, int managerId, int roleId, int userId, String phoneNum, int hotelId);
+    void addRoom(String roomType, int capacity, int price, int hotelID);
+    void addUser(String name, int managerId, int roleId, String phoneNum, int hotelId);
     CustomerList getAllCustomer();
     RoomList getAllRooms();
     UserList getAllUsers();
@@ -31,7 +31,7 @@ public interface HotelsysService {
     void removeRoom(int id);
     void removeUser(int id);
 
-    void addOrder(int id, int customerId, int roomNum);
+    void addOrder(int customerId, int roomNum);
     OrderList getAllOrders();
     Order parseOrder(ResultSet resultSet) throws SQLException;
     void removeOrder(int id);

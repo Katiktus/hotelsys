@@ -10,8 +10,6 @@
 <h1>Fill the form, please</h1>
 <br>
 <form name="user" action="${pageContext.request.contextPath}/addUser" method="post">
-    <p>Id</p>
-    <input title="Id" type="text" name="userId" value="${user.userId}" required>
     <p>Name</p>
     <input title="Name" type="text" name="name" value="${user.name}">
     <p>Role Id</p>  <!--Можно добавить выпадающий список-->

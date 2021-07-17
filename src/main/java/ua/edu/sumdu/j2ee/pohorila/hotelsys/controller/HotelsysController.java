@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Customer;
@@ -84,7 +85,7 @@ public class HotelsysController {
 
     @PostMapping("/addUser")
     public String addUser(@ModelAttribute("user")User user){
-        hotelsysService.addUser(user.getName(), user.getManagerId(), user.getRoleId(), user.getUserId(), user.getPhoneNum(), user.getHotelID());
+        hotelsysService.addUser(user.getName(), user.getManagerId(), user.getRoleId(), user.getPhoneNum(), user.getHotelID());
         return "redirect:/users.html";
     }
 
@@ -108,7 +109,7 @@ public class HotelsysController {
 
     @PostMapping("/addRoom")
     public String addRoom(@ModelAttribute("room") Room room){
-        hotelsysService.addRoom(room.getRoomNumber(), room.getRoomType(), room.getCapacity(), room.getPrice(), room.getHotelID());
+        hotelsysService.addRoom(room.getRoomType(), room.getCapacity(), room.getPrice(), room.getHotelID());
         return "redirect:/rooms.html";
     }
 
@@ -180,7 +181,7 @@ public class HotelsysController {
 
     @PostMapping("/addOrder")
     public String addOrder(@ModelAttribute("order") Order order){
-        hotelsysService.addOrder(order.getOrderId(), order.getCustomerId(), order.getRoomNumber());
+        hotelsysService.addOrder(order.getCustomerId(), order.getRoomNumber());
         return "redirect:/orders.html";
     }
 
@@ -275,38 +276,24 @@ public class HotelsysController {
         return model;
     }
 
-    @RequestMapping(value = "/roomsAjax")
-    public @ResponseBody String roomAjax(
-            @ModelAttribute("check") String value) {
-        String response = "<table>\n" +
-                "    <tr>\n" +
-                "        <th>Number</th>\n" +
-                "        <th>Type</th>\n" +
-                "        <th>Capacity</th>\n" +
-                "        <th>Price</th>\n" +
-                "    </tr>";
-        ArrayList<Room> objects;
-        if(value == null) {
-            objects = hotelsysService.getAllRooms().getArr();
-        }else{
-            objects = hotelsysService.getFreeRooms().getArr();
+    @RequestMapping(value = "/freeRooms/{sort}")
+    public ModelAndView freeRooms(@PathVariable String sort) {
+        ModelAndView model = new ModelAndView("freeRooms");
+        ArrayList<Room> objects = hotelsysService.getFreeRooms().getArr();
+        if(sort.equals("capacity")){
+            Collections.sort(objects, Room.capacityComparator);
         }
-        for (Room room:objects){
-            response += "" +
-                    "        <tr>\n" +
-                    "            <td>"+room.getRoomNumber()+"</td>\n" +
-                    "            <td>"+room.getRoomType()+"</td>\n" +
-                    "            <td>"+room.getCapacity()+"</td>\n" +
-                    "            <td>"+room.getPrice()+"</td></tr>";
+        if(sort.equals("roomNumber")){
+            Collections.sort(objects, Room.roomNumComparator);
         }
-        return response+"</table>";
+        if(sort.equals("price")){
+            Collections.sort(objects, Room.priceComparator);
+        }
+        if(sort.equals("roomType")){
+            Collections.sort(objects, Room.roomTypeComparator);
+        }
+        model.addObject("roomsObj", objects);
+        return model;
     }
 
-   @RequestMapping(value = "/1", method = RequestMethod.GET)
-   @ResponseBody
-   public ModelAndView ajaxPage(){
-        ModelAndView modelAndView = new ModelAndView("1");
-        return modelAndView;
-
-    }
 }

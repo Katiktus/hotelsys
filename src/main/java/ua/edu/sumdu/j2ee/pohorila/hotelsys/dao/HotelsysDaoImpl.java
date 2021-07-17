@@ -72,9 +72,16 @@ public class HotelsysDaoImpl implements HotelsysDao{
     public void addCustomer(String name, String phoneNumber) {
         connect();
         try {
-            preparedStatement = connection.prepareStatement("insert into LAB3_EP_CUSTOMER values (null, ?, ?)");
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, phoneNumber);
+            String sql = "select LAB3_EP_CUSTOMER_SEQUENCE.nextval from DUAL";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            int id = 0;
+            if(rs.next())
+                id = rs.getInt(1);
+            preparedStatement = connection.prepareStatement("insert into LAB3_EP_CUSTOMER values (?, ?, ?)");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, phoneNumber);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,11 +90,17 @@ public class HotelsysDaoImpl implements HotelsysDao{
     }
 
     @Override
-    public void addRoom(int roomNumber, String roomType, int capacity, int price, int hotelID) {
+    public void addRoom(String roomType, int capacity, int price, int hotelID) {
         connect();
         try {
+            String sql = "select LAB3_EP_ROOM_SEQUENCE.nextval from DUAL";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            int id = 0;
+            if(rs.next())
+                id = rs.getInt(1);
             preparedStatement = connection.prepareStatement("insert into LAB3_EP_ROOM values (?, ?, ?, ?, ?)");
-            preparedStatement.setInt(1, roomNumber);
+            preparedStatement.setInt(1, id);
             preparedStatement.setString(2, roomType);
             preparedStatement.setInt(3, capacity);
             preparedStatement.setInt(4, price);
@@ -101,14 +114,20 @@ public class HotelsysDaoImpl implements HotelsysDao{
     }
 
     @Override
-    public void addUser(String name, int managerId, int roleId, int userId, String phoneNum, int hotelId) {
+    public void addUser(String name, int managerId, int roleId, String phoneNum, int hotelId) {
         connect();
         try {
+            String sql = "select LAB3_EP_USER_SEQUENCE.nextval from DUAL";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            int id = 0;
+            if(rs.next())
+                id = rs.getInt(1);
             preparedStatement = connection.prepareStatement("INSERT INTO LAB3_EP_USER values (?,?,?,?,?,?)");
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, roleId);
             preparedStatement.setInt(3, managerId);
-            preparedStatement.setInt(4, userId);
+            preparedStatement.setInt(4, id);
             preparedStatement.setString(5, phoneNum);
             preparedStatement.setInt(6, hotelId);
             preparedStatement.execute();
@@ -317,9 +336,15 @@ public class HotelsysDaoImpl implements HotelsysDao{
     }
 
     @Override
-    public void addOrder(int id, int customerId, int roomNum) {
+    public void addOrder(int customerId, int roomNum) {
         connect();
         try {
+            String sql = "select LAB3_EP_CUSTOMER_SEQUENCE.nextval from DUAL";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            int id = 0;
+            if(rs.next())
+                id = rs.getInt(1);
             preparedStatement = connection.prepareStatement("insert into LAB3_EP_ORDER values (?, ?, ?)");
             preparedStatement.setInt(1, id);
             preparedStatement.setInt(2, customerId);
@@ -394,7 +419,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
         connect();
         RoomList roomList = new RoomList();
         try {
-            preparedStatement = connection.prepareStatement("select DISTINCT * from LAB3_EP_ROOM rooms where LAB3_EP_ROOM_NUMBER != all(select LAB3_EP_ROOM_NUMBER from LAB3_EP_ORDER)");
+            preparedStatement = connection.prepareStatement("SELECT DISTINCT * FROM LAB3_EP_ROOM rooms WHERE LAB3_EP_ROOM_NUMBER != all(select LAB3_EP_ROOM_NUMBER from LAB3_EP_ORDER)");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 roomList.add(parseRoom(resultSet));

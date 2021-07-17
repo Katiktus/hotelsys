@@ -17,8 +17,6 @@
 <h1>Fill the form, please</h1>
 <br>
 <form name="room" action="${pageContext.request.contextPath}/addRoom" method="post">
-    <p>Number</p>
-    <input title="Number" type="text" name="roomNumber" value="${room.roomNumber}" required min="0">
     <p>Type</p> <!--Можно добавить выпадающий список-->
     <input title="Type" type="text" name="roomType" value="${room.roomType}">
     <p>Capacity</p>
