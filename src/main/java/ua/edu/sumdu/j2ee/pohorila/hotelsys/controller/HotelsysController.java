@@ -240,7 +240,7 @@ public class HotelsysController {
         return model;
     }
 
-    @RequestMapping("/rooms" )
+    @RequestMapping("/rooms/{sort}" )
     public ModelAndView getRooms(@PathVariable String sort) {
         ModelAndView model = new ModelAndView("rooms");
         ArrayList<Room> objects = hotelsysService.getAllRooms().getArr();
