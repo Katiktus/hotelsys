@@ -14,6 +14,7 @@ import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.Room;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.User;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.service.HotelsysService;
 
+import javax.xml.ws.RequestWrapper;
 import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -216,26 +217,9 @@ public class HotelsysController {
         return model;
     }
 
-    @RequestMapping("/users/{sort}")
-    public ModelAndView getUsers(@PathVariable String sort) {
-        ModelAndView model = new ModelAndView("users");
-        ArrayList<User> objects = hotelsysService.getAllUsers().getArr();
-        if(sort.equals("id")){
-            Collections.sort(objects, User.userIdComparator);
-        }
-        if(sort.equals("managerId")){
-            Collections.sort(objects, User.managerIdComparator);
-        }
-        if(sort.equals("name")){
-            Collections.sort(objects, User.nameComparator);
-        }
-        if(sort.equals("phoneNumber")){
-            Collections.sort(objects, User.phoneComparator);
-        }
-        if(sort.equals("roleId")){
-            Collections.sort(objects, User.roleIdComparator);
-        }
-        model.addObject("usersObj", objects);
+    @RequestMapping("/users")
+    public ModelAndView getUsers() {
+        ModelAndView model = new ModelAndView("1");
         return model;
     }
 
@@ -256,7 +240,7 @@ public class HotelsysController {
         return model;
     }
 
-    @RequestMapping("/rooms/{sort}" )
+    @RequestMapping("/rooms" )
     public ModelAndView getRooms(@PathVariable String sort) {
         ModelAndView model = new ModelAndView("rooms");
         ArrayList<Room> objects = hotelsysService.getAllRooms().getArr();
@@ -296,4 +280,16 @@ public class HotelsysController {
         return model;
     }
 
+    @RequestMapping("/1")
+    public ModelAndView ajax(){
+        ModelAndView model = new ModelAndView("1");
+        return model;
+    }
+
+    @RequestMapping("/res")
+    public ModelAndView res(){
+        ModelAndView model = new ModelAndView("result");
+        model.addObject("users", hotelsysService.getAllUsers().getArr());
+        return model;
+    }
 }
