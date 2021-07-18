@@ -6,10 +6,18 @@
     </style>
     <script>
         var request;
+        var s = null;
+        function test (num) {
+            s = num;
+        }
         function sendInfo()
         {
             var v=document.vinform.t1.value;
-            var url="res?val="+v;
+
+            if(s==null){
+                s = "id";
+            }
+            var url="res/"+s+"?val="+v;
 
             if(window.XMLHttpRequest){
                 request=new XMLHttpRequest();
@@ -35,7 +43,7 @@
     </script>
 </head>
 <body onload="sendInfo()">
-<marquee><h1>This is an example of ajax</h1></marquee>
+<h1>User list</h1>
 <form name="vinform">
     Enter name:<input type="text" name="t1" value="" onchange="sendInfo()">
 </form>

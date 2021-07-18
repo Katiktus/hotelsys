@@ -13,20 +13,22 @@
 <%
     String s=request.getParameter("val");
         System.out.println(s);
+    System.out.println(request.toString());
         try{
             %>
-<table>
+<table onclick="sendInfo()">
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Phone num</th>
-        <th>Role Id</th>
-        <th>Manager Id</th>
+        <th><href onclick="test('id')" id="id">Id</href></th>
+        <th><href onclick="test('name')" id="name">Name</href></th>
+        <th><href onclick="test('phoneNum')" id="phoneNum">Phone num</href></th>
+        <th><href onclick="test('roleId')" id="roleId">Role Id</href></th>
+        <th><href onclick="test('mgrId')" id="mgrId">Manager Id</href></th>
     </tr>
 <%
             for (User user: (ArrayList<User>)request.getAttribute("users")) {
                 if(user.getName().contains(s) || s.isEmpty()){
                     %>
+
 <tr>
     <td><%=user.getUserId()%></td>
     <td><%=user.getName()%></td>

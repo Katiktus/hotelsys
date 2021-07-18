@@ -286,10 +286,40 @@ public class HotelsysController {
         return model;
     }
 
-    @RequestMapping("/res")
+    @RequestMapping("/res/")
     public ModelAndView res(){
         ModelAndView model = new ModelAndView("result");
         model.addObject("users", hotelsysService.getAllUsers().getArr());
+        return model;
+    }
+
+    /*
+    *         <th>Id</th>
+        <th>Name</th>
+        <th>Phone num</th>
+        <th>Role Id</th>
+        <th>Manager Id</th>*/
+
+    @RequestMapping("/res/{sort}")
+    public ModelAndView resSort(@PathVariable String sort){
+        ModelAndView model = new ModelAndView("result");
+        ArrayList<User> objects = hotelsysService.getAllUsers().getArr();
+        if(sort.equals("id")){
+            Collections.sort(objects, User.userIdComparator);
+        }
+        if(sort.equals("name")){
+            Collections.sort(objects, User.nameComparator);
+        }
+        if(sort.equals("phoneNum")){
+            Collections.sort(objects, User.phoneComparator);
+        }
+        if(sort.equals("roleId")){
+            Collections.sort(objects, User.roleIdComparator);
+        }
+        if(sort.equals("mgrId")){
+            Collections.sort(objects, User.managerIdComparator);
+        }
+        model.addObject("users", objects);
         return model;
     }
 }

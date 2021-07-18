@@ -62,7 +62,7 @@
     </tr>
     <tr>
         <td>
-            <a href="users/id">Users</a>
+            <a href="users">Users</a>
         </td>
     </tr>
     <tr>
