@@ -426,7 +426,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
         connect();
         UserList userList = new UserList();
         try {
-            preparedStatement = connection.prepareStatement("select * from LAB3_EP_USER where LAB3_EP_USER_NAME LIKE ?");
+            preparedStatement = connection.prepareStatement("select * from LAB3_EP_USER where LAB3_EP_USER_NAME LIKE upper(?)");
             preparedStatement.setString(1, name+'%');
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
