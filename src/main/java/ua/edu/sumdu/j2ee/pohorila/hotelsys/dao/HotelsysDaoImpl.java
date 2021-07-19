@@ -1,6 +1,8 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.dao;
 
 import org.apache.ibatis.jdbc.ScriptRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.*;
 
@@ -28,6 +30,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
     private DataSource dataSource;
     private Context context;
     private Hashtable hashtable = new Hashtable();
+    Logger logger = LoggerFactory.getLogger(HotelsysDaoImpl.class);
 
     @Override
     public void connect(){
@@ -51,6 +54,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
                     sr.runScript(reader);
                 }
             }
+            logger.info("connect");
         } catch (SQLException | NamingException | FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -63,6 +67,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
                 connection.close();
             if(context != null)
                 context.close();
+            logger.info("disconnect");
         } catch (SQLException | NamingException throwables) {
             throwables.printStackTrace();
         }
@@ -83,6 +88,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement.setString(2, name);
             preparedStatement.setString(3, phoneNumber);
             preparedStatement.execute();
+            logger.info("addCustomer "+name+", "+phoneNumber);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -106,6 +112,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement.setInt(4, price);
             preparedStatement.setInt(5, hotelID);
             preparedStatement.execute();
+            logger.info("addRoom: "+roomType+", "+capacity+ ", "+price+", "+hotelID);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -131,6 +138,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement.setString(5, phoneNum);
             preparedStatement.setInt(6, hotelId);
             preparedStatement.execute();
+            logger.info("addUser: "+name+", "+managerId+ ", "+roleId+", "+phoneNum+", "+hotelId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -151,6 +159,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             throwables.printStackTrace();
         }
         disconnect();
+        logger.info("getAllCustomers");
         return customerList;
     }
 
@@ -160,6 +169,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
         String name = resultSet.getString("LAB3_EP_CUSTOMER_NAME");
         String phoneNumber = resultSet.getString("LAB3_EP_CUSTOMER_PHONE_NUMBER");
         Customer customer = new Customer(customerid, name, phoneNumber);
+        logger.info("parseCustomer");
         return customer;
     }
 
@@ -171,6 +181,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
         int price = resultSet.getInt("LAB3_EP_ROOM_PRICE");
         int hotel_id = resultSet.getInt("LAB3_EP_ROOM_HOTEL_ID");
         Room room = new Room(roomNumber,roomType, capacity, price, hotel_id);
+        logger.info("parseRoom");
         return room;
     }
 
@@ -183,6 +194,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
         String phoneNumber = resultSet.getString("LAB3_EP_USER_PHONE_NUMBER");
         int hotelid = resultSet.getInt("LAB3_EP_USER_HOTEL_ID");
         User user = new User(name, managerid, userid, roleid, phoneNumber, hotelid);
+        logger.info("parseUser");
         return user;
     }
 
@@ -200,6 +212,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             throwables.printStackTrace();
         }
         disconnect();
+        logger.info("getAllRooms");
         return roomList;
     }
 
@@ -217,6 +230,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             throwables.printStackTrace();
         }
         disconnect();
+        logger.info("getAllUsers");
         return userList;
 
     }
@@ -230,6 +244,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement.setString(1, phone);
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
+            logger.info("updateCustomerPhone id:"+id+", phone:"+phone);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -245,6 +260,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement.setInt(1, price);
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
+            logger.info("updateRoomPrice id:"+id+", price:"+price);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -260,6 +276,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement.setInt(1, mgrId);
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
+            logger.info("updateUserMgr id:"+id+", mgrId:"+mgrId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -275,6 +292,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement.setInt(1, roleId);
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
+            logger.info("updateUserRole id:"+id+", roleId:"+roleId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -290,6 +308,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement.setString(1, phoneNum);
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
+            logger.info("updateUserPhone id:"+id+", phoneNum:"+phoneNum);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -303,6 +322,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement = connection.prepareStatement("delete from LAB3_EP_CUSTOMER where LAB3_EP_CUSTOMER_ID = ?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+            logger.info("removeCustomer" +id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -316,6 +336,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement = connection.prepareStatement("delete from LAB3_EP_ROOM where LAB3_EP_ROOM_NUMBER = ?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+            logger.info("removeRoom" +id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -329,6 +350,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement = connection.prepareStatement("delete from LAB3_EP_USER where LAB3_EP_USER_ID = ?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+            logger.info("removeUser" +id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -350,6 +372,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             preparedStatement.setInt(2, customerId);
             preparedStatement.setInt(3, roomNum);
             preparedStatement.execute();
+            logger.info("addOrder: "+customerId+", "+roomNum);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -366,6 +389,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             while(resultSet.next()){
                 orderList.add(parseOrder(resultSet));
             }
+            logger.info("getAllOrders");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -379,6 +403,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
         int customerId = resultSet.getInt("LAB3_EP_ORDER_CUSTOMER_ID");
         int roomNumber = resultSet.getInt("LAB3_EP_ROOM_NUMBER");
         Order order = new Order(id, customerId, roomNumber);
+        logger.info("parseOrder");
         return order;
     }
 
@@ -388,8 +413,8 @@ public class HotelsysDaoImpl implements HotelsysDao{
         try {
             preparedStatement = connection.prepareStatement("delete from LAB3_EP_ORDER where LAB3_EP_ORDER_ID = ?");
             preparedStatement.setInt(1, id);
-
             preparedStatement.executeUpdate();
+            logger.info("removeOrder "+id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -407,6 +432,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             while(resultSet.next()){
                 userList.add(parseUser(resultSet));
             }
+            logger.info("getUsersByName" +name);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -424,6 +450,7 @@ public class HotelsysDaoImpl implements HotelsysDao{
             while(resultSet.next()){
                 roomList.add(parseRoom(resultSet));
             }
+            logger.info("getFreeRooms");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

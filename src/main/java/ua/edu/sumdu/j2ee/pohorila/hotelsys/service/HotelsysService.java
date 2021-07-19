@@ -3,9 +3,6 @@ package ua.edu.sumdu.j2ee.pohorila.hotelsys.service;
 import org.springframework.stereotype.Service;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 @Service
 public interface HotelsysService {
     HotelsysService instance = new HotelServiceImpl();
@@ -14,8 +11,6 @@ public interface HotelsysService {
         return instance;
     }
 
-   // void connect();
-  //  void disconnect();
     void addCustomer(String name, String phoneNumber);
     void addRoom(String roomType, int capacity, int price, int hotelID);
     void addUser(String name, int managerId, int roleId, String phoneNum, int hotelId);
@@ -33,7 +28,6 @@ public interface HotelsysService {
 
     void addOrder(int customerId, int roomNum);
     OrderList getAllOrders();
-    Order parseOrder(ResultSet resultSet) throws SQLException;
     void removeOrder(int id);
 
 
