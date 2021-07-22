@@ -3,6 +3,9 @@ package ua.edu.sumdu.j2ee.pohorila.hotelsys.dao;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 import ua.edu.sumdu.j2ee.pohorila.hotelsys.model.*;
 
@@ -32,13 +35,20 @@ public class HotelsysDaoImpl implements HotelsysDao{
     private Hashtable hashtable = new Hashtable();
     Logger logger = LoggerFactory.getLogger(HotelsysDaoImpl.class);
 
+    @Value( "${provider.url}" )
+    private String providerUrl;
+    @Value( "${initFactory.name}" )
+    private String initFactory;
+    @Value( "${datasource.name}" )
+    private String dataSourceName;
+
     @Override
     public void connect(){
         try{
-            hashtable.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
-            hashtable.put(Context.PROVIDER_URL, "t3://localhost:7001");
+            hashtable.put(Context.INITIAL_CONTEXT_FACTORY, initFactory);
+            hashtable.put(Context.PROVIDER_URL,providerUrl);
             context = new InitialContext(hashtable);
-            dataSource = (DataSource) context.lookup("DataSourceHotel");
+            dataSource = (DataSource) context.lookup(dataSourceName);
             connection = dataSource.getConnection();
             if(!connection.isClosed()){
                 System.out.println("Connection successful...");

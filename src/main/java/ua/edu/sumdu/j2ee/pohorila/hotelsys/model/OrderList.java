@@ -1,6 +1,7 @@
 package ua.edu.sumdu.j2ee.pohorila.hotelsys.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class OrderList {
     ArrayList<Order> orders;
@@ -19,5 +20,25 @@ public class OrderList {
 
     public void setOrders(ArrayList<Order> orders) {
         this.orders = orders;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderList{" +
+                "orders=" + orders +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderList orderList = (OrderList) o;
+        return Objects.equals(orders, orderList.orders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orders);
     }
 }
